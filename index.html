@@ -155,8 +155,8 @@ textarea.resp:focus{outline:2px solid var(--accent-soft);border-color:var(--acce
 /* ======================= DATOS DE LOS EXÁMENES ======================= */
 const EXAMENES = [
 {
-  n:1, subtitulo:"Patrones y Estructuras Lineales",
-  temas:"Decorator · Pila · BST · BFS · Recurrencias · Correctitud · Diseño",
+  n:1, subtitulo:"Simulacro Integral · A",
+  temas:"Patrones · Pilas y Colas · BST · DFS/BFS · Dijkstra/Kruskal",
   preguntas:[
     { tipo:"mcq", num:1, pts:1, tema:"POO / Patrones",
       enunciado:"Analice el código y determine qué se imprime exactamente en la consola.",
@@ -203,14 +203,21 @@ p.pop();
       correcta:1,
       explicacion:"BFS explora por niveles usando una cola (FIFO). Visita cada vértice y cada arista una vez → O(V + E). (DFS usa pila; Dijkstra usa cola de prioridad.)" },
 
-    { tipo:"dev", num:5, pts:4, tema:"Complejidad Algorítmica",
-      enunciado:"Calcule la complejidad temporal T(n) del siguiente algoritmo recursivo SIN usar el Método Maestro (use el árbol de recursión o sustitución):  T(n) = 2·T(n/2) + O(n).",
+    { tipo:"dev", num:5, pts:4, tema:"Grafos (Dijkstra)",
+      enunciado:"Ejecute el algoritmo de Dijkstra sobre el grafo ponderado no dirigido, con nodo origen A. (a) Escriba la tabla con la distancia mínima de A a cada nodo. (b) Explique por qué Dijkstra es un algoritmo voraz y por qué exige pesos no negativos.  Aristas: A-B(2), A-C(5), B-C(1), B-D(6), C-D(3), C-E(8), D-E(2).",
       criterios:[
-        {desc:"Identifica la complejidad final Θ(n log n)", kw:["n log n","nlogn","n·log","n log(n)","nlog n","o(n log n)","θ(n log n)","theta(n log n)"], pts:2},
-        {desc:"Justifica con árbol de recursión / niveles (log n niveles, O(n) por nivel)", kw:["arbol de recursion","nivel","niveles","log n niveles","log2","cada nivel","suma","altura"], pts:2}
+        {desc:"Distancias correctas: A=0, B=2, C=3, D=6, E=8", kw:["a=0","b=2","c=3","d=6","e=8","0 2 3 6 8"], pts:2},
+        {desc:"Explica la estrategia voraz (elegir el no visitado de menor distancia) y por qué requiere pesos no negativos", kw:["voraz","greedy","menor distancia","no visitado","pesos no negativos","no negativos","relaj","optimo local"], pts:2}
       ],
-      solucion:`<p>Por árbol de recursión: en cada nivel el trabajo total es O(n) (el nivel 0 hace n; el nivel 1 son 2 subproblemas de n/2 que suman n; etc.). La altura del árbol es log₂n porque el tamaño se divide entre 2 hasta llegar a 1.</p>
-<p>Trabajo total = (trabajo por nivel) × (número de niveles) = O(n) × log₂n = <b>Θ(n·log n)</b>. Es la misma recurrencia de Merge Sort.</p>` },
+      solucion:`<p>Se visita siempre el nodo no visitado con menor distancia y se relajan sus vecinos con d(vi)=min(d(v)+peso, d(vi)):</p>
+<pre>Inicio: A=0, resto=∞
+Visita A(0): B=2, C=5
+Visita B(2): C=min(5,2+1)=3, D=2+6=8
+Visita C(3): D=min(8,3+3)=6, E=3+8=11
+Visita D(6): E=min(11,6+2)=8
+Visita E(8): fin</pre>
+<p><b>Tabla final:</b> A=0, B=2, C=3, D=6, E=8.</p>
+<p><b>Voraz:</b> en cada paso toma la decisión localmente óptima (el nodo más cercano aún no visitado), confiando en llegar al óptimo global. <b>Pesos no negativos:</b> con pesos negativos un nodo ya fijado como definitivo podría mejorarse después, invalidando la decisión voraz.</p>` },
 
     { tipo:"dev", num:6, pts:6, tema:"Correctitud",
       enunciado:"Considere la función recursiva que calcula el tamaño (número de nodos) de un árbol binario. Demuestre por inducción estructural que size(nodo) retorna el número correcto de nodos.",
@@ -249,8 +256,8 @@ p.pop();
   ]
 },
 {
-  n:2, subtitulo:"Comportamiento y Árboles",
-  temas:"Observer · Cola · BST (altura) · Dijkstra · Recurrencia · Correctitud BFS · Diseño",
+  n:2, subtitulo:"Simulacro Integral · B",
+  temas:"Patrones · Pilas y Colas · BST · DFS/BFS · Dijkstra/Kruskal",
   preguntas:[
     { tipo:"mcq", num:1, pts:1, tema:"POO / Patrones",
       enunciado:"Un patrón de diseño define una dependencia uno-a-muchos entre objetos, de modo que cuando un objeto (sujeto) cambia de estado, todos sus dependientes son notificados automáticamente. ¿Qué patrón es?",
@@ -280,14 +287,19 @@ q.push(3);
       correcta:2,
       explicacion:"A→B=1; A→C = min(4, 1+2)=3; A→D = min(A→B→D=1+5=6, A→C→D=3+1=4)=4. La ruta óptima es A→B→C→D con costo 4." },
 
-    { tipo:"dev", num:5, pts:4, tema:"Complejidad Algorítmica",
-      enunciado:"Calcule T(n) SIN el Método Maestro:  T(n) = T(n/2) + O(1). (Corresponde, por ejemplo, a la búsqueda binaria.)",
+    { tipo:"dev", num:5, pts:4, tema:"Grafos (Kruskal)",
+      enunciado:"Ejecute el algoritmo de Kruskal sobre el grafo con las aristas dadas. (a) Liste, en orden, las aristas que forman el Árbol de Expansión Mínima (MST) y el peso total. (b) Explique cómo Union-Find evita formar ciclos.  Aristas: A-B(5), A-C(7), B-C(9), B-E(15), B-F(6), C-D(8), C-E(7), D-E(5), E-F(8), E-G(9), F-G(11).",
       criterios:[
-        {desc:"Identifica la complejidad final Θ(log n)", kw:["log n","logn","log(n)","θ(log n)","o(log n)","logaritmica","theta(log n)"], pts:2},
-        {desc:"Justifica: O(1) por nivel y log n niveles (el tamaño se divide entre 2)", kw:["nivel","niveles","divide entre 2","mitad","log2","cada llamada","reduce a la mitad","una sola"], pts:2}
+        {desc:"MST correcto: A-B(5), D-E(5), B-F(6), A-C(7), C-E(7), E-G(9); peso total 39", kw:["a-b","d-e","b-f","a-c","c-e","e-g","39"], pts:2},
+        {desc:"Explica Union-Find: se ordenan las aristas por peso y solo se une una arista si sus extremos están en conjuntos distintos (distinto representante)", kw:["ordena","menor a mayor","union-find","conjuntos","representante","ancestro","distinto","ciclo","mismo conjunto"], pts:2}
       ],
-      solucion:`<p>Cada llamada hace trabajo constante O(1) y genera <i>una sola</i> subllamada con la mitad del tamaño. El número de veces que se puede dividir n entre 2 hasta llegar a 1 es log₂n.</p>
-<p>T(n) = O(1)·(número de niveles) = O(1)·log₂n = <b>Θ(log n)</b>.</p>` },
+      solucion:`<p>Se ordenan las aristas por peso y se agregan si NO forman ciclo (extremos en conjuntos distintos):</p>
+<pre>A-B(5) ✓   D-E(5) ✓   B-F(6) ✓
+A-C(7) ✓   C-E(7) ✓   (une los dos grupos)
+C-D(8) ✗ ciclo   E-F(8) ✗   B-C(9) ✗
+E-G(9) ✓   → 6 aristas (V-1)</pre>
+<p><b>MST:</b> A-B(5), D-E(5), B-F(6), A-C(7), C-E(7), E-G(9). <b>Peso total = 39.</b></p>
+<p><b>Union-Find:</b> cada nodo empieza en su propio conjunto. Antes de añadir una arista (u,v) se comparan los representantes (ancestros) de u y v; si son iguales ya están conectados y la arista cerraría un ciclo, por lo que se descarta. Si son distintos, se unen los conjuntos.</p>` },
 
     { tipo:"dev", num:6, pts:6, tema:"Correctitud",
       enunciado:"Demuestre, usando el método inductivo, la correctitud del algoritmo BFS: pruebe que BFS visita los nodos en orden creciente de su distancia (en número de aristas) al nodo inicial.",
@@ -324,8 +336,8 @@ q.push(3);
   ]
 },
 {
-  n:3, subtitulo:"Creación y Grafos",
-  temas:"Singleton · Pila · BST (InOrden) · Kruskal · Recurrencia 3T(n/3) · Invariante · DFS",
+  n:3, subtitulo:"Simulacro Integral · C",
+  temas:"Patrones · Pilas y Colas · BST · DFS/BFS · Dijkstra/Kruskal",
   preguntas:[
     { tipo:"mcq", num:1, pts:1, tema:"POO / Patrones",
       enunciado:"Analice el código y determine qué se imprime exactamente en la consola.",
@@ -373,32 +385,36 @@ int main(){
       correcta:2,
       explicacion:"Tras añadir A-B, D-E, B-F, A-C y C-E, los nodos {A,B,C,D,E,F} quedan en un mismo conjunto (C-E unió ambos grupos). Al evaluar C-D(8), C y D ya tienen el mismo representante → formaría ciclo → se rechaza." },
 
-    { tipo:"dev", num:5, pts:4, tema:"Complejidad Algorítmica",
-      enunciado:"Calcule T(n) SIN el Método Maestro:  T(n) = 3·T(n/3) + O(n).",
+    { tipo:"dev", num:5, pts:4, tema:"Grafos (Dijkstra)",
+      enunciado:"Ejecute Dijkstra sobre el grafo ponderado con origen S. (a) Dé la distancia mínima de S a cada nodo. (b) Justifique por qué la complejidad de Dijkstra con cola de prioridad es O((V+E)·log V).  Aristas: S-A(1), S-B(4), A-B(2), A-C(5), B-C(1), C-D(3).",
       criterios:[
-        {desc:"Identifica la complejidad final Θ(n log n)", kw:["n log n","nlogn","n·log","θ(n log n)","o(n log n)","nlog n","theta(n log n)"], pts:2},
-        {desc:"Justifica: cada nivel suma O(n) y hay log₃n niveles", kw:["nivel","niveles","log3","log₃","cada nivel","divide entre 3","arbol","altura"], pts:2}
+        {desc:"Distancias correctas: S=0, A=1, B=3, C=4, D=7", kw:["s=0","a=1","b=3","c=4","d=7","0 1 3 4 7"], pts:2},
+        {desc:"Justifica O((V+E)·log V): cada arista puede generar una inserción en la cola de prioridad y cada operación cuesta log V", kw:["(v+e)","log v","cola de prioridad","insercion","operacion","log","cada arista","extrae"], pts:2}
       ],
-      solucion:`<p>Árbol de recursión: en el nivel 0 el trabajo es n. En el nivel 1 hay 3 subproblemas de tamaño n/3, cuyo trabajo total es 3·(n/3) = n. En general, cada nivel aporta O(n).</p>
-<p>La altura es log₃n (dividimos entre 3 hasta llegar a 1). Total = O(n)·log₃n = <b>Θ(n·log n)</b> (la base del logaritmo no afecta al orden).</p>` },
+      solucion:`<pre>Inicio: S=0, resto=∞
+Visita S(0): A=1, B=4
+Visita A(1): B=min(4,1+2)=3, C=1+5=6
+Visita B(3): C=min(6,3+1)=4
+Visita C(4): D=4+3=7
+Visita D(7): fin</pre>
+<p><b>Distancias:</b> S=0, A=1, B=3, C=4, D=7.</p>
+<p><b>O((V+E)·log V):</b> cada vértice se extrae de la cola de prioridad una vez y cada arista puede provocar una inserción; cada inserción/extracción cuesta O(log V) por el tamaño de la cola. Sumando sobre V vértices y E aristas: O((V+E)·log V).</p>` },
 
-    { tipo:"dev", num:6, pts:6, tema:"Correctitud (Invariante)",
-      enunciado:"Considere el algoritmo iterativo que encuentra el valor máximo de un arreglo A[0..n-1]. (a) Defina formalmente el invariante del bucle for. (b) Demuestre su correctitud (inicialización, mantenimiento, terminación).",
-      codigo:`maximo(A, n):
-    m = A[0]
-    for j = 1 to n-1:
-        if A[j] > m:
-            m = A[j]
-    return m`,
+    { tipo:"dev", num:6, pts:6, tema:"Correctitud (BST)",
+      enunciado:"Demuestre por inducción sobre la estructura del árbol que el recorrido InOrden de un Árbol Binario de Búsqueda (BST) visita los nodos en orden ascendente de sus valores.",
+      codigo:`inorden(nodo):
+    si nodo == null: retornar
+    inorden(nodo.left)
+    visitar(nodo.dato)
+    inorden(nodo.right)`,
       criterios:[
-        {desc:"Invariante: antes de la iteración j, m es el máximo de A[0..j-1]", kw:["invariante","maximo de a[0","m es el maximo","antes de la iteracion","subarreglo","a[0..j"], pts:2},
-        {desc:"Inicialización: antes de j=1, m=A[0] es el máximo de A[0..0]", kw:["inicializacion","m = a[0]","a[0]","j=1","antes de empezar","primera iteracion"], pts:2},
-        {desc:"Mantenimiento y terminación: se actualiza m si A[j]>m; al terminar (j=n) m es el máximo de todo A", kw:["mantenimiento","terminacion","actualiza","al terminar","j = n","maximo de todo","todo el arreglo","a[0..n"], pts:2}
+        {desc:"Caso base: un árbol vacío (o una sola hoja) produce una secuencia trivialmente ordenada", kw:["caso base","vacio","hoja","trivial","un nodo","una hoja"], pts:2},
+        {desc:"Hipótesis inductiva: InOrden de los subárboles izquierdo y derecho ya produce secuencias ordenadas", kw:["hipotesis","inductiv","subarbol","asumimos","suponemos","ordenad"], pts:2},
+        {desc:"Paso: por la propiedad del BST, izquierda < raíz < derecha, así que [izq ordenado] + raíz + [der ordenado] queda globalmente ordenado", kw:["propiedad","izquierda","derecha","raiz","concatena","menor","mayor","ascendente","globalmente"], pts:2}
       ],
-      solucion:`<p><b>Invariante:</b> al inicio de cada iteración con índice j, la variable m contiene el valor máximo del subarreglo A[0..j-1].</p>
-<p><b>Inicialización:</b> antes de la primera iteración (j=1), m = A[0], que es el máximo de A[0..0]. El invariante se cumple.</p>
-<p><b>Mantenimiento:</b> supongamos que m es el máximo de A[0..j-1]. En la iteración j, si A[j] &gt; m se actualiza m = A[j]; así m pasa a ser el máximo de A[0..j]. Al incrementar j, el invariante se mantiene.</p>
-<p><b>Terminación:</b> el bucle termina cuando j = n. Por el invariante, m es el máximo de A[0..n-1], es decir, de todo el arreglo. El algoritmo es correcto. ∎</p>` },
+      solucion:`<p><b>Caso base:</b> un árbol vacío produce la secuencia vacía (ordenada) y un árbol de un solo nodo produce un único valor (trivialmente ordenado).</p>
+<p><b>Hipótesis inductiva:</b> supongamos que InOrden aplicado a los subárboles izquierdo y derecho (de menor tamaño) produce secuencias en orden ascendente.</p>
+<p><b>Paso inductivo:</b> InOrden visita primero todo el subárbol izquierdo, luego la raíz, luego todo el derecho. Por la propiedad del BST, TODOS los valores del subárbol izquierdo son menores que la raíz y TODOS los del derecho son mayores. Por la hipótesis, la parte izquierda sale ordenada y la derecha también. Concatenar [izquierda ordenada] + raíz + [derecha ordenada] produce una secuencia globalmente ascendente. ∎</p>` },
 
     { tipo:"dev", num:7, pts:6, tema:"Diseño de Algoritmos",
       enunciado:"Diseñe un algoritmo que determine si un grafo NO dirigido contiene al menos un ciclo, usando DFS. Escriba el pseudocódigo (4 pts) y justifique su complejidad O(V+E) (2 pts).",
@@ -426,8 +442,8 @@ dfs(v, padre):
   ]
 },
 {
-  n:4, subtitulo:"Estructura y Recorridos",
-  temas:"Composite · Cola · BST (PreOrden) · DFS/BFS · Recurrencia · Correctitud inserción · Validar BST",
+  n:4, subtitulo:"Simulacro Integral · D",
+  temas:"Patrones · Pilas y Colas · BST · DFS/BFS · Dijkstra/Kruskal",
   preguntas:[
     { tipo:"mcq", num:1, pts:1, tema:"POO / Patrones",
       enunciado:"Se necesita representar un sistema de archivos donde una carpeta puede contener archivos individuales u otras carpetas, y se quiere tratar a archivos y carpetas de forma uniforme (con la misma interfaz). ¿Qué patrón de diseño es el más adecuado?",
@@ -458,14 +474,17 @@ dfs(v, padre):
       correcta:1,
       explicacion:"DFS = pila (profundidad); BFS = cola (niveles). Ambos visitan cada vértice y arista una vez → O(V+E). El camino más corto no ponderado lo garantiza BFS, no DFS." },
 
-    { tipo:"dev", num:5, pts:4, tema:"Complejidad Algorítmica",
-      enunciado:"Calcule T(n) SIN el Método Maestro:  T(n) = 2·T(n/2) + O(1).",
+    { tipo:"dev", num:5, pts:4, tema:"Grafos (Kruskal)",
+      enunciado:"Ejecute Kruskal sobre el grafo. (a) Dé las aristas del MST y su peso total. (b) Indique cuál es la PRIMERA arista rechazada por formar un ciclo y explique por qué un MST de V nodos tiene exactamente V-1 aristas.  Aristas: A-B(1), A-C(3), B-C(2), B-D(4), C-D(5), D-E(6), C-E(7).",
       criterios:[
-        {desc:"Identifica la complejidad final Θ(n)", kw:["θ(n)","o(n)","lineal","theta(n)","orden n","es n","o (n)"], pts:2},
-        {desc:"Justifica: el trabajo lo dominan las hojas (n hojas); el número de nodos crece por nivel", kw:["hojas","2^","numero de nodos","nodos","crece","nivel","ultimo nivel","suma","geometrica"], pts:2}
+        {desc:"MST correcto: A-B(1), B-C(2), B-D(4), D-E(6); peso total 13", kw:["a-b","b-c","b-d","d-e","13"], pts:2},
+        {desc:"Primera arista rechazada A-C(3) por ciclo; un MST de V nodos tiene V-1 aristas", kw:["a-c","rechaz","ciclo","v-1","v - 1","sin ciclos","conecta"], pts:2}
       ],
-      solucion:`<p>En el árbol de recursión, el trabajo por nodo es O(1), pero el número de nodos se DUPLICA por nivel: el nivel i tiene 2^i nodos. El último nivel (hojas) tiene 2^(log₂n) = n nodos y domina la suma.</p>
-<p>Trabajo total = número total de nodos ≈ 1 + 2 + 4 + … + n = O(n). Por lo tanto <b>Θ(n)</b>. (Ojo: a diferencia de 2T(n/2)+O(n) que da n·log n, aquí el trabajo por nivel NO es constante sino creciente, dominado por las hojas.)</p>` },
+      solucion:`<pre>Orden por peso: A-B(1), B-C(2), A-C(3), B-D(4), C-D(5), D-E(6), C-E(7)
+A-B(1) ✓   B-C(2) ✓   A-C(3) ✗ ciclo (A y C ya conectados)
+B-D(4) ✓   C-D(5) ✗ ciclo   D-E(6) ✓   → 4 aristas</pre>
+<p><b>MST:</b> A-B(1), B-C(2), B-D(4), D-E(6). <b>Peso total = 13.</b> Primera rechazada: <b>A-C(3)</b>.</p>
+<p>Un árbol de expansión conecta los V nodos sin ciclos; para conectar V nodos hacen falta exactamente V-1 aristas (una más crearía un ciclo, una menos dejaría el grafo desconectado).</p>` },
 
     { tipo:"dev", num:6, pts:6, tema:"Correctitud",
       enunciado:"Demuestre por inducción que la inserción recursiva en un BST mantiene la propiedad del BST (para todo nodo n: los valores del subárbol izquierdo son menores que n y los del derecho, mayores).",
@@ -504,8 +523,8 @@ dfs(v, padre):
   ]
 },
 {
-  n:5, subtitulo:"Patrones Avanzados y MST",
-  temas:"Proxy · Pila · BST (size) · Kruskal vs Dijkstra · Recurrencia 4T(n/2) · Correctitud Kruskal · Componentes",
+  n:5, subtitulo:"Simulacro Integral · E",
+  temas:"Patrones · Pilas y Colas · BST · DFS/BFS · Dijkstra/Kruskal",
   preguntas:[
     { tipo:"mcq", num:1, pts:1, tema:"POO / Patrones",
       enunciado:"Analice el código y determine qué se imprime exactamente en la consola.",
@@ -560,14 +579,20 @@ int main(){
       correcta:1,
       explicacion:"Dijkstra = camino de menor costo desde un origen a todos los demás. Kruskal = árbol de expansión mínima (conectar todos los nodos con el menor peso total, sin ciclos). Ambos son voraces pero resuelven problemas distintos." },
 
-    { tipo:"dev", num:5, pts:4, tema:"Complejidad Algorítmica",
-      enunciado:"Calcule T(n) SIN el Método Maestro:  T(n) = 4·T(n/2) + O(n).",
+    { tipo:"dev", num:5, pts:4, tema:"Grafos (Dijkstra)",
+      enunciado:"Ejecute Dijkstra sobre el grafo ponderado con origen A. (a) Dé la distancia mínima de A a cada nodo, indicando el orden en que se van fijando. (b) ¿Qué ruta óptima sigue A hasta D?  Aristas: A-B(3), A-C(1), C-B(1), B-D(5), C-D(7), B-E(1), D-E(2).",
       criterios:[
-        {desc:"Identifica la complejidad final Θ(n²)", kw:["n^2","n²","n2","cuadrat","θ(n^2)","o(n^2)","n al cuadrado","theta(n^2)"], pts:2},
-        {desc:"Justifica: el trabajo crece por nivel y lo dominan las hojas (n² hojas / suma geométrica)", kw:["hojas","nivel","4^","2^","crece","dominan","geometrica","ultimo nivel","suma"], pts:2}
+        {desc:"Distancias correctas: A=0, C=1, B=2, E=3, D=5", kw:["a=0","c=1","b=2","e=3","d=5","0 1 2 3 5"], pts:2},
+        {desc:"Ruta óptima A→D es A-C-B-E-D con costo 5 (mejor que A-B-D=8 o A-C-D=8)", kw:["a-c-b-e-d","a→c→b→e→d","c-b-e-d","ruta","costo 5"], pts:2}
       ],
-      solucion:`<p>En el nivel i hay 4^i subproblemas de tamaño n/2^i, con trabajo 4^i·(n/2^i) = n·2^i. La suma sobre los log₂n niveles es una serie geométrica de razón 2, dominada por el último término.</p>
-<p>El último nivel tiene 4^(log₂n) = n² hojas. Total = <b>Θ(n²)</b>.</p>` },
+      solucion:`<pre>Inicio: A=0
+Visita A(0): B=3, C=1
+Visita C(1): B=min(3,1+1)=2, D=1+7=8
+Visita B(2): D=min(8,2+5)=7, E=2+1=3
+Visita E(3): D=min(7,3+2)=5
+Visita D(5): fin</pre>
+<p><b>Distancias:</b> A=0, C=1, B=2, E=3, D=5. Orden en que se fijan: A, C, B, E, D.</p>
+<p><b>Ruta óptima A→D:</b> A→C→B→E→D con costo 1+1+1+2 = <b>5</b>, mejor que A→B→D (8) o A→C→D (8).</p>` },
 
     { tipo:"dev", num:6, pts:6, tema:"Correctitud (Kruskal)",
       enunciado:"Explique por qué el algoritmo de Kruskal produce un Árbol de Expansión Mínima (MST). Justifique: (a) por qué nunca forma ciclos, y (b) por qué el resultado tiene peso mínimo.",
@@ -603,8 +628,8 @@ BFS(inicio):
   ]
 },
 {
-  n:6, subtitulo:"Integrador",
-  temas:"Builder · Cola · BST (liberar) · Dijkstra · Recurrencia T(n-1) · Correctitud DFS · Diseño Dijkstra",
+  n:6, subtitulo:"Simulacro Integral · F",
+  temas:"Patrones · Pilas y Colas · BST · DFS/BFS · Dijkstra/Kruskal",
   preguntas:[
     { tipo:"mcq", num:1, pts:1, tema:"POO / Patrones",
       enunciado:"Analice el código y determine qué se imprime exactamente en la consola.",
@@ -652,14 +677,17 @@ int main(){
       correcta:1,
       explicacion:"Con cola de prioridad, Dijkstra es O((V+E)·log V). La priority_queue de C++ extrae el MAYOR por defecto; insertar las distancias en negativo hace que el 'mayor negativo' corresponda a la menor distancia real, simulando una cola de mínimos." },
 
-    { tipo:"dev", num:5, pts:4, tema:"Complejidad Algorítmica",
-      enunciado:"Calcule T(n) SIN el Método Maestro (esta recurrencia NO es divide-y-vencerás):  T(n) = T(n-1) + O(n).",
+    { tipo:"dev", num:5, pts:4, tema:"Grafos (Kruskal)",
+      enunciado:"Ejecute Kruskal sobre el grafo. (a) Dé las aristas del MST y su peso total. (b) Explique por qué la estrategia voraz de Kruskal (tomar siempre la arista más ligera que no forme ciclo) produce un árbol de peso mínimo.  Aristas: A-B(4), A-C(1), B-C(2), B-D(5), C-D(8), C-E(10), D-E(3).",
       criterios:[
-        {desc:"Identifica la complejidad final Θ(n²)", kw:["n^2","n²","n2","cuadrat","θ(n^2)","o(n^2)","n al cuadrado","theta(n^2)"], pts:2},
-        {desc:"Justifica por expansión/suma: n + (n-1) + ... + 1 = n(n+1)/2", kw:["suma","n + (n-1)","n+(n-1)","expansion","serie","n(n+1)/2","1+2+","aritmetica","desenrolla","desenroll"], pts:2}
+        {desc:"MST correcto: A-C(1), B-C(2), D-E(3), B-D(5); peso total 11", kw:["a-c","b-c","d-e","b-d","11"], pts:2},
+        {desc:"Explica por qué el voraz es óptimo (propiedad del corte: la arista más ligera que cruza un corte pertenece a algún MST)", kw:["voraz","greedy","corte","mas ligera","propiedad","arista segura","optimo","minimo"], pts:2}
       ],
-      solucion:`<p>Al desenrollar: T(n) = O(n) + O(n-1) + O(n-2) + … + O(1) = suma de 1 hasta n = n(n+1)/2.</p>
-<p>Esa suma es del orden de <b>Θ(n²)</b>. (Es una recurrencia de reducción por sustracción: cada llamada reduce el tamaño en 1, con n llamadas de trabajo decreciente.)</p>` },
+      solucion:`<pre>Orden por peso: A-C(1), B-C(2), D-E(3), A-B(4), B-D(5), C-D(8), C-E(10)
+A-C(1) ✓   B-C(2) ✓   D-E(3) ✓
+A-B(4) ✗ ciclo   B-D(5) ✓ (une {A,B,C} con {D,E})   → 4 aristas</pre>
+<p><b>MST:</b> A-C(1), B-C(2), D-E(3), B-D(5). <b>Peso total = 11.</b></p>
+<p><b>Por qué el voraz es óptimo:</b> por la <i>propiedad del corte</i>, la arista de menor peso que cruza cualquier corte del grafo pertenece a algún MST. Kruskal, al tomar en cada paso la arista más ligera que une dos componentes distintas, siempre añade una arista segura; por eso el resultado es de peso mínimo.</p>` },
 
     { tipo:"dev", num:6, pts:6, tema:"Correctitud (DFS)",
       enunciado:"Demuestre por inducción la correctitud del algoritmo DFS: pruebe que DFS, iniciado en un nodo s, visita TODOS los nodos alcanzables desde s.",
