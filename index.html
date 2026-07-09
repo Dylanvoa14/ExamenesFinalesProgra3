@@ -3,933 +3,889 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Programación III · 6 Exámenes Finales Interactivos</title>
+<title>EDO Final · Guía interactiva</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.css">
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/katex.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.9/contrib/auto-render.min.js"></script>
 <style>
-:root{
-  --paper:#ffffff; --ink:#1a1d24; --soft:#4a5160; --muted:#7b8394; --line:#d9dee7;
-  --bg:#eef1f6; --accent:#1f5fd6; --accent-d:#16408f; --accent-soft:#e7effc;
-  --green:#1a7f4b; --green-bg:#e6f6ec; --red:#c02637; --red-bg:#fdecee;
-  --amber:#9a6b00; --amber-bg:#fdf4e0; --code-bg:#f6f8fb; --code-ink:#222a3a;
-  --mono:"JetBrains Mono","Fira Code",Consolas,"Courier New",monospace;
-  --serif:Georgia,"Times New Roman",serif;
-  --sans:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
-}
-*{box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;font-size:16px}
-.wrap{max-width:900px;margin:0 auto;padding:28px 22px 120px}
-
-/* ---------- Home ---------- */
-.home-head{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:26px 28px;margin-bottom:22px;box-shadow:0 2px 10px rgba(20,30,60,.05)}
-.home-head .brand{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
-.home-head .logo{font-weight:800;letter-spacing:.5px;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-d));padding:8px 12px;border-radius:9px;font-size:15px}
-.home-head h1{font-family:var(--serif);font-size:27px;margin:2px 0}
-.home-head p{margin:6px 0 0;color:var(--soft)}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:16px}
-.exam-card{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:18px 20px;cursor:pointer;transition:.18s;box-shadow:0 2px 8px rgba(20,30,60,.04);display:flex;flex-direction:column;gap:6px}
-.exam-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:0 8px 22px rgba(31,95,214,.14)}
-.exam-card .badge{align-self:flex-start;background:var(--accent-soft);color:var(--accent-d);font-weight:700;font-size:12px;padding:3px 10px;border-radius:99px}
-.exam-card h3{margin:6px 0 2px;font-size:19px}
-.exam-card .sub{color:var(--muted);font-size:13.5px}
-.exam-card .topics{font-size:12.5px;color:var(--soft);margin-top:6px}
-.exam-card .go{margin-top:10px;color:var(--accent);font-weight:600;font-size:14px}
-.note{background:var(--amber-bg);border:1px solid #ecd9a6;border-radius:12px;padding:12px 16px;font-size:14px;color:#6a5010;margin:18px 0}
-
-/* ---------- Exam sheet ---------- */
-.sheet{background:var(--paper);border:1px solid var(--line);border-radius:14px;padding:0;overflow:hidden;box-shadow:0 3px 16px rgba(20,30,60,.07)}
-.sheet-head{border-bottom:3px solid var(--ink);padding:22px 30px 16px;display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
-.sheet-head .l .logo{font-weight:800;color:#fff;background:linear-gradient(135deg,var(--accent),var(--accent-d));padding:7px 11px;border-radius:8px;font-size:14px;display:inline-block}
-.sheet-head .r{text-align:right;font-family:var(--serif)}
-.sheet-head .r .t1{font-size:23px;font-weight:700}
-.sheet-head .r .t2{font-size:17px;font-weight:700}
-.sheet-head .r .t3{font-size:14px;color:var(--soft)}
-.sheet-body{padding:22px 30px 30px}
-.instr{border-bottom:2px solid var(--ink);padding-bottom:14px;margin-bottom:6px}
-.instr ul{margin:8px 0 0;padding-left:20px}
-.instr li{margin:3px 0;font-size:14.5px;color:var(--soft)}
-.pttable{margin:16px auto;border-collapse:collapse;font-size:13.5px}
-.ptable caption{font-size:12.5px;color:var(--muted);margin-bottom:5px}
-.ptable th,.ptable td{border:1px solid var(--ink);padding:4px 14px;text-align:center}
-.ptable th{background:#f0f3f8}
-
-/* ---------- Questions ---------- */
-.pregunta{border:1px solid var(--line);border-radius:12px;padding:18px 20px;margin:18px 0;background:#fcfdff}
-.p-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px}
-.p-num{font-weight:800;font-size:17px}
-.p-pts{color:var(--accent-d);font-weight:600;font-size:14px}
-.p-tema{margin-left:auto;background:#eef2f8;color:var(--soft);font-size:12px;font-weight:600;padding:3px 10px;border-radius:99px}
-.p-enun{margin:4px 0 10px}
-pre.codebox{background:var(--code-bg);border:1px solid #dde3ee;border-radius:8px;padding:12px 14px;overflow-x:auto;font-family:var(--mono);font-size:13px;line-height:1.5;color:var(--code-ink);margin:10px 0;tab-size:4}
-.opciones{margin:8px 0 0;display:flex;flex-direction:column;gap:7px}
-.opcion{display:flex;gap:10px;align-items:flex-start;border:1px solid var(--line);border-radius:9px;padding:9px 13px;cursor:pointer;transition:.14s;background:#fff}
-.opcion:hover{border-color:var(--accent);background:var(--accent-soft)}
-.opcion input{margin-top:3px;accent-color:var(--accent);cursor:pointer}
-.opcion .letra{font-weight:700;color:var(--soft)}
-.opcion.sel{border-color:var(--accent);background:var(--accent-soft)}
-.opcion.ok{border-color:var(--green);background:var(--green-bg)}
-.opcion.bad{border-color:var(--red);background:var(--red-bg)}
-.opcion.lock{cursor:default}
-.opcion code{font-family:var(--mono);font-size:.92em}
-textarea.resp{width:100%;min-height:150px;border:1px solid var(--line);border-radius:9px;padding:11px 13px;font-family:var(--sans);font-size:14.5px;resize:vertical;background:#fff;line-height:1.55}
-textarea.resp:focus{outline:2px solid var(--accent-soft);border-color:var(--accent)}
-.hint{font-size:12.5px;color:var(--muted);margin-top:6px}
-
-/* ---------- Feedback ---------- */
-.fb{margin-top:12px;border-radius:9px;padding:12px 15px;font-size:14px;display:none}
-.fb.show{display:block}
-.fb.correcto{background:var(--green-bg);border:1px solid #a9dcc0}
-.fb.incorrecto{background:var(--red-bg);border:1px solid #f0bcc3}
-.fb .fbt{font-weight:700;margin-bottom:3px}
-.fb.correcto .fbt{color:var(--green)}
-.fb.incorrecto .fbt{color:var(--red)}
-.crit{list-style:none;padding:0;margin:8px 0 0}
-.crit li{padding:5px 0 5px 26px;position:relative;font-size:13.5px}
-.crit li.met::before{content:"✔";position:absolute;left:0;color:var(--green);font-weight:800}
-.crit li.miss::before{content:"✘";position:absolute;left:0;color:var(--red);font-weight:800}
-.solucion{margin-top:10px;background:#f4f7fc;border:1px solid #d5deec;border-radius:9px;padding:12px 15px;font-size:14px}
-.solucion .st{font-weight:700;color:var(--accent-d);margin-bottom:4px}
-.solucion pre{background:#fff;border:1px solid #dde3ee;border-radius:7px;padding:10px 12px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.5}
-.solucion code{font-family:var(--mono);background:#e9eef6;padding:1px 5px;border-radius:4px;font-size:.9em}
-.copybtn{margin-top:10px;background:#fff;border:1px solid var(--accent);color:var(--accent-d);border-radius:8px;padding:7px 13px;font-size:13px;font-weight:600;cursor:pointer;transition:.15s}
-.copybtn:hover{background:var(--accent-soft)}
-.copybtn.done{background:var(--green-bg);border-color:var(--green);color:var(--green)}
-
-/* ---------- Bars / buttons ---------- */
-.topbar{position:sticky;top:0;z-index:20;background:rgba(238,241,246,.92);backdrop-filter:blur(6px);border-bottom:1px solid var(--line);padding:10px 22px;display:flex;align-items:center;gap:14px;margin:-28px -22px 22px}
-.btn{border:none;border-radius:9px;padding:10px 18px;font-size:14.5px;font-weight:600;cursor:pointer;transition:.15s}
-.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent-d));color:#fff}
-.btn-primary:hover{filter:brightness(1.08)}
-.btn-ghost{background:#fff;border:1px solid var(--line);color:var(--soft)}
-.btn-ghost:hover{border-color:var(--accent);color:var(--accent-d)}
-.submit-row{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px;align-items:center}
-.scorebanner{display:none;position:sticky;top:52px;z-index:15;background:linear-gradient(135deg,#12306b,#1f5fd6);color:#fff;border-radius:14px;padding:18px 24px;margin:0 0 20px;box-shadow:0 6px 20px rgba(31,95,214,.28)}
-.scorebanner.show{display:block}
-.scorebanner .big{font-size:34px;font-weight:800;font-family:var(--serif)}
-.scorebanner .sb-sub{opacity:.9;font-size:14px}
-.scorebanner .sb-row{display:flex;align-items:center;gap:20px;flex-wrap:wrap}
-.scorebanner .chip{background:rgba(255,255,255,.16);border-radius:8px;padding:6px 12px;font-size:13px}
-.hidden{display:none}
-.mono{font-family:var(--mono)}
-@media(max-width:640px){.sheet-body{padding:18px}.sheet-head{padding:16px}.wrap{padding:16px 12px 100px}.topbar{margin:-16px -12px 18px}}
+  :root{
+    --bg:#f6f8fd; --card:#fff; --ink:#1b2337; --muted:#5c6579;
+    --blue:#2f5cff; --blue-soft:#eaf0ff; --blue-dark:#1e2a5a;
+    --green:#0d9463; --green-soft:#e6f7f0; --amber:#b45309; --amber-soft:#fdf3e3;
+    --red:#c62838; --red-soft:#fdeaec; --violet:#6d28d9; --violet-soft:#f1eafd;
+    --line:#e3e8f3;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size:16.5px;line-height:1.68;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:800px;margin:0 auto;padding:16px 14px 90px}
+  header.hero{background:linear-gradient(135deg,#17204a,#2f5cff 85%);color:#fff;border-radius:20px;
+    padding:28px 24px;margin-bottom:18px;box-shadow:0 10px 30px rgba(47,92,255,.25)}
+  header.hero h1{margin:0 0 8px;font-size:1.5rem;line-height:1.3}
+  header.hero p{margin:0;opacity:.9;font-size:.95rem}
+  nav.toc{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px 18px;margin-bottom:24px}
+  nav.toc b{display:block;margin-bottom:8px;font-size:1.02rem}
+  nav.toc a{display:flex;gap:8px;color:var(--ink);text-decoration:none;padding:7px 8px;font-size:.95rem;
+    border-radius:8px}
+  nav.toc a:hover{background:var(--blue-soft)}
+  nav.toc a .em{width:26px;text-align:center}
+  section{background:var(--card);border:1px solid var(--line);border-radius:18px;
+    padding:22px 20px;margin-bottom:26px;box-shadow:0 2px 10px rgba(20,30,70,.04)}
+  h2{font-size:1.28rem;margin:0 0 6px;padding-bottom:10px;border-bottom:2px solid var(--blue-soft)}
+  h2 .tag{display:inline-block;background:var(--blue);color:#fff;border-radius:9px;
+    padding:2px 10px;font-size:.75rem;vertical-align:middle;margin-right:9px}
+  h3{font-size:1.1rem;margin:28px 0 10px;color:var(--blue)}
+  h4{font-size:1rem;margin:20px 0 8px;color:var(--blue-dark)}
+  p{margin:9px 0}
+  .why{color:var(--muted);font-size:.92rem;font-style:italic;display:block;margin-top:3px}
+  .step{display:flex;gap:13px;margin:16px 0;align-items:flex-start}
+  .step .n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--blue);color:#fff;
+    display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.92rem;margin-top:2px;
+    box-shadow:0 3px 8px rgba(47,92,255,.3)}
+  .step .body{flex:1;min-width:0}
+  .step .body b.t{display:block;margin-bottom:3px;font-size:1.01rem}
+  .box{border-radius:13px;padding:13px 15px;margin:14px 0;border-left:5px solid}
+  .box b.h{display:block;margin-bottom:5px}
+  .warn{background:var(--red-soft);border-color:var(--red)}
+  .tip{background:var(--green-soft);border-color:var(--green)}
+  .key{background:var(--amber-soft);border-color:var(--amber)}
+  .idea{background:var(--violet-soft);border-color:var(--violet)}
+  .answer{background:var(--blue-soft);border:1.5px solid var(--blue);border-radius:13px;
+    padding:11px 15px;margin:14px 0;font-weight:500}
+  .answer::before{content:"✅ Respuesta: ";font-weight:700;color:var(--blue)}
+  table{width:100%;border-collapse:collapse;margin:12px 0;font-size:.93rem}
+  th,td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+  th{background:var(--blue-soft)}
+  .enun{background:#f1f4fb;border-radius:13px;padding:13px 15px;margin:12px 0;font-size:.97rem;
+    border:1px dashed #b9c6e8}
+  .enun::before{content:"📄 Enunciado real: ";font-weight:700}
+  .katex{font-size:1.06em}
+  .katex-display{overflow-x:auto;overflow-y:hidden;padding:5px 0;margin:11px 0}
+  .fig{text-align:center;margin:18px 0}
+  .fig svg{max-width:100%;height:auto}
+  .fig .cap{font-size:.88rem;color:var(--muted);margin-top:6px}
+  .check{list-style:none;padding:0}
+  .check li{padding:8px 0 8px 34px;position:relative;border-bottom:1px dashed var(--line)}
+  .check li::before{content:"☐";position:absolute;left:5px;color:var(--blue);font-size:1.2rem}
+  .pill{display:inline-block;background:var(--violet-soft);color:var(--violet);border-radius:999px;
+    padding:3px 13px;font-size:.83rem;font-weight:600;margin:3px 5px 3px 0}
+  /* ===== QUIZ ===== */
+  .quizzone{background:linear-gradient(180deg,#f4f0ff,#fff);border:2px solid var(--violet);
+    border-radius:16px;padding:16px;margin:26px 0 6px}
+  .quizzone > b.qt{display:block;color:var(--violet);font-size:1.05rem;margin-bottom:4px}
+  .quizzone > .sub{font-size:.88rem;color:var(--muted);margin-bottom:10px}
+  .quiz{background:#fff;border:1px solid var(--line);border-radius:13px;padding:14px;margin:12px 0}
+  .quiz .q{font-weight:600;margin:0 0 10px}
+  .quiz button.opt{display:block;width:100%;text-align:left;background:#f6f8fd;color:var(--ink);
+    border:1.5px solid var(--line);border-radius:10px;padding:10px 13px;margin:7px 0;
+    font-size:.95rem;font-family:inherit;cursor:pointer;line-height:1.5;transition:all .15s}
+  .quiz button.opt:hover{border-color:var(--blue);background:var(--blue-soft)}
+  .quiz button.opt.right{background:var(--green-soft);border-color:var(--green);font-weight:600}
+  .quiz button.opt.wrong{background:var(--red-soft);border-color:var(--red);opacity:.85}
+  .quiz button.opt:disabled{cursor:default}
+  .quiz .expl{display:none;margin-top:10px;padding:11px 13px;border-radius:10px;
+    background:var(--green-soft);border-left:4px solid var(--green);font-size:.93rem}
+  .quiz.done .expl{display:block}
+  .quiz .expl b::before{content:"💡 "}
+  footer{text-align:center;color:var(--muted);font-size:.9rem;margin-top:14px}
+  .svglbl{font:600 13px sans-serif}
 </style>
 </head>
 <body>
 <div class="wrap">
 
-  <!-- HOME -->
-  <div id="home">
-    <div class="home-head">
-      <div class="brand">
-        <span class="logo">UTEC · CS2013</span>
-        <div>
-          <h1>Programación III — 6 Exámenes Finales</h1>
-          <p>Práctica interactiva con corrección automática. Temas: Patrones de Diseño, Pilas y Colas, Árboles Binarios de Búsqueda, DFS/BFS, Dijkstra y Kruskal.</p>
-        </div>
-      </div>
-    </div>
-    <div class="note">
-      <b>Cómo funciona:</b> cada examen tiene el mismo formato que tu parcial — 7 preguntas, 20 puntos. Las <b>preguntas 1–4</b> son de opción múltiple sobre código (1 pt c/u) y se califican solas. Las <b>preguntas 5–7</b> son de desarrollo (4+6+6 pts): al enviar recibes un puntaje estimado por rúbrica, la solución modelo, y un botón para copiar tu respuesta y afinar la nota con una IA.
-    </div>
-    <div class="grid" id="examGrid"></div>
-  </div>
+<header class="hero">
+  <h1>🎯 Ecuaciones Diferenciales — Guía interactiva del Final</h1>
+  <p>Explicada desde cero, con diagramas, las soluciones de los finales reales (2023-2, 2024-1, 2025-1 · UTEC) y quizzes para practicar en el camino. Léela en orden.</p>
+</header>
 
-  <!-- EXAM VIEW -->
-  <div id="examView" class="hidden">
-    <div class="topbar">
-      <button class="btn btn-ghost" onclick="volver()">← Exámenes</button>
-      <strong id="tbTitle" style="font-size:15px"></strong>
-    </div>
-    <div class="scorebanner" id="scorebanner"></div>
-    <div class="sheet" id="sheet"></div>
-    <div class="submit-row">
-      <button class="btn btn-primary" id="btnEntregar" onclick="entregar()">Entregar examen</button>
-      <button class="btn btn-ghost" onclick="reintentar()">Reintentar</button>
-      <button class="btn btn-ghost" onclick="copiarTodoIA()" id="btnCopiaTodo">Copiar TODO para revisión con IA</button>
-      <span id="submitHint" style="color:var(--muted);font-size:13px"></span>
-    </div>
-  </div>
+<nav class="toc">
+  <b>Índice</b>
+  <a href="#s0"><span class="em">🗺️</span>0 · Cómo es el examen</a>
+  <a href="#s1"><span class="em">🧰</span>1 · Kit de herramientas</a>
+  <a href="#s2"><span class="em">🪀</span>2 · Modelar resortes (P1) + quiz</a>
+  <a href="#s3"><span class="em">⚡</span>3 · Modelar circuitos (P2a) + quiz</a>
+  <a href="#s4"><span class="em">🔁</span>4 · Sistemas con Laplace (P2b) + quiz</a>
+  <a href="#s5"><span class="em">📦</span>5 · Laplace puro (P3) + quiz</a>
+  <a href="#s6"><span class="em">🧮</span>6 · Autovalores (Adicional) + quiz</a>
+  <a href="#s7"><span class="em">🏆</span>7 · Plan de batalla</a>
+</nav>
 
+<!-- ============ 0 ============ -->
+<section id="s0">
+<h2><span class="tag">0</span>Cómo es el examen (siempre igual)</h2>
+<table>
+<tr><th>Problema</th><th>Pts</th><th>Lo que SIEMPRE toman</th></tr>
+<tr><td>P1</td><td>6</td><td>Masa-resorte: modelar + resolver EDO de 2.º orden</td></tr>
+<tr><td>P2</td><td>6</td><td>Circuito de mallas (matriz) + sistema de EDOs con Laplace</td></tr>
+<tr><td>P3</td><td>8</td><td>Laplace: PVI, función por tramos, transformada inversa</td></tr>
+<tr><td>Adicional</td><td>3</td><td>Autovalores + un concepto teórico</td></tr>
+</table>
+<div class="tip"><b class="h">Datos clave</b>Son 23 puntos pero la nota máxima es 20 → puedes <b>soltar 3 puntos</b>. En 2025-1 dieron <b>formulario</b> con la tabla de Laplace: no memorices tablas, domina los <b>procedimientos</b>.</div>
+</section>
+
+<!-- ============ 1 ============ -->
+<section id="s1">
+<h2><span class="tag">1</span>Kit de herramientas</h2>
+<p>Cuatro herramientas resuelven todo el examen. Sin esto, nada de lo demás tiene sentido — 10 minutos aquí valen oro.</p>
+
+<h3>1.1 · La ecuación característica</h3>
+<p><b>El problema:</b> resolver $a\,x'' + b\,x' + c\,x = 0$. <b>La idea genial:</b> buscamos una función que al derivarla se parezca a sí misma… ¡la exponencial! Proponemos $x = e^{rt}$:</p>
+$$x = e^{rt} \;\Rightarrow\; x' = r\,e^{rt} \;\Rightarrow\; x'' = r^2 e^{rt}$$
+<p>Sustituyendo: $\big(ar^2 + br + c\big)e^{rt} = 0$. Como $e^{rt}$ nunca es cero, lo que debe ser cero es el paréntesis:</p>
+$$\boxed{a r^2 + b r + c = 0} \quad \text{(la "ecuación característica")}$$
+<p>La resuelves con la fórmula general y, según cómo salgan las raíces, la solución tiene una de tres formas:</p>
+<table>
+<tr><th>Raíces</th><th>$x_h(t)$</th><th>Físicamente…</th></tr>
+<tr><td>Reales distintas $r_1 \neq r_2$</td><td>$C_1 e^{r_1 t} + C_2 e^{r_2 t}$</td><td>decae sin oscilar (sobreamortiguado)</td></tr>
+<tr><td>Real doble $r$</td><td>$(C_1 + C_2 t)\,e^{rt}$</td><td>caso límite (crítico)</td></tr>
+<tr><td>Complejas $\alpha \pm \beta i$</td><td>$e^{\alpha t}[C_1\cos\beta t + C_2\sin\beta t]$</td><td>oscila; si $\alpha&lt;0$ se va apagando</td></tr>
+</table>
+<div class="idea"><b class="h">¿Por qué las complejas dan senos y cosenos?</b>
+Por la fórmula de Euler: $e^{i\beta t} = \cos\beta t + i\sin\beta t$. La exponencial compleja $e^{(\alpha+\beta i)t} = e^{\alpha t}\,e^{i\beta t}$ ES una oscilación de frecuencia $\beta$ envuelta en $e^{\alpha t}$. Al reagrupar constantes, lo imaginario se cancela y queda la forma real de la tabla. <b>Lectura física:</b> $\alpha$ = qué tan rápido decae (amortiguamiento), $\beta$ = frecuencia de oscilación.</div>
+<div class="key"><b class="h">Ejemplo tipo examen</b>
+$r^2 + 2r + 17 = 0 \Rightarrow r = \frac{-2\pm\sqrt{4-68}}{2} = \frac{-2\pm 8i}{2} = -1 \pm 4i$. Lees $\alpha=-1$, $\beta=4$ y escribes directo:
+$$x_h = e^{-t}\big[C_1\cos 4t + C_2\sin 4t\big]$$</div>
+
+<h3>1.2 · Coeficientes indeterminados (la solución particular)</h3>
+<p>Si el lado derecho no es cero ($f(t)\neq 0$), la solución completa es <b>suma de dos piezas</b>:</p>
+$$x(t) = \underbrace{x_h(t)}_{\text{la de arriba, con } C_1, C_2} + \underbrace{x_p(t)}_{\text{una que "imite" a } f(t)}$$
+<p>Para $x_p$ propones una copia de la forma de $f$ con coeficientes desconocidos:</p>
+<table>
+<tr><th>Si $f(t)$ es…</th><th>Propón $x_p=$</th></tr>
+<tr><td>$\cos\omega t$ o $\sin\omega t$</td><td>$A\cos\omega t + B\sin\omega t$ — <b>siempre ambos</b>, aunque $f$ tenga solo uno</td></tr>
+<tr><td>$e^{at}$</td><td>$Ae^{at}$</td></tr>
+<tr><td>$e^{at}\cos\omega t$</td><td>$e^{at}[A\cos\omega t + B\sin\omega t]$</td></tr>
+<tr><td>$t$, $t^2$…</td><td>polinomio completo: $At+B$, $At^2+Bt+C$…</td></tr>
+</table>
+<p>Después: derivas $x_p$ dos veces, sustituyes en la EDO, agrupas los coeficientes de $\cos$ y $\sin$ <b>por separado</b>, igualas al lado derecho → sistemita 2×2 → $A$ y $B$.</p>
+<div class="warn"><b class="h">⚠️ La trampa que SIEMPRE ponen: resonancia</b>
+Si tu propuesta ya vive dentro de $x_h$ (misma exponencial y misma frecuencia), al sustituir todo se cancela y no puedes despejar nada. Arreglo: <b>multiplica la propuesta por $t$</b>.
+Ejemplo: $x''+16x = 2\cos 4t$. Como $x_h = C_1\cos 4t + C_2\sin 4t$ ya contiene $\cos 4t$ → propones $x_p = t[A\cos 4t + B\sin 4t]$. Cayó en 2023-2 y 2024-1.</div>
+
+<h3>1.3 · Transformada de Laplace: 4 fórmulas</h3>
+<p>$\mathcal{L}$ transforma $f(t) \to F(s)$ y su superpoder es convertir <b>derivadas en multiplicaciones por $s$</b>: una EDO se vuelve álgebra.</p>
+<div class="idea"><b class="h">① Derivadas (la fórmula estrella — las CI entran solas)</b>
+$$\mathcal{L}\{x'\} = sX - x(0) \qquad \mathcal{L}\{x''\} = s^2X - s\,x(0) - x'(0)$$</div>
+<div class="idea"><b class="h">② Tabla básica (viene en el formulario)</b>
+$$\mathcal{L}\{t^n\}=\frac{n!}{s^{n+1}} \quad \mathcal{L}\{e^{at}\}=\frac{1}{s-a} \quad \mathcal{L}\{\cos\omega t\}=\frac{s}{s^2+\omega^2} \quad \mathcal{L}\{\sin\omega t\}=\frac{\omega}{s^2+\omega^2}$$</div>
+<div class="idea"><b class="h">③ Traslación en $s$ (aparece $e^{at}$ multiplicando)</b>
+$$\mathcal{L}\{e^{at}f(t)\} = F(s-a)$$
+En inversa: si ves $(s+2)$ donde iría $s$, "extraes" un $e^{-2t}$.</div>
+<div class="idea"><b class="h">④ Traslación en $t$ (escalón unitario $\mathcal{U}$)</b>
+$$\mathcal{L}\{f(t)\,\mathcal{U}(t-a)\} = e^{-as}\,\mathcal{L}\{f(t+a)\} \qquad\quad \mathcal{L}^{-1}\{e^{-as}F(s)\} = f(t-a)\,\mathcal{U}(t-a)$$
+Ida: sustituye $t\to t+a$ <u>dentro</u> de $f$ antes de transformar. Vuelta: inversa normal y luego $t\to t-a$.</div>
+
+<h3>1.4 · Fracciones parciales (mini-curso)</h3>
+<div class="step"><div class="n">1</div><div class="body"><b class="t">Factoriza el denominador</b> al máximo.</div></div>
+<div class="step"><div class="n">2</div><div class="body"><b class="t">Plantilla según factores:</b> $(s-a)$ simple → $\frac{A}{s-a}$ · repetido $(s-a)^2$ → $\frac{A}{s-a}+\frac{B}{(s-a)^2}$ · cuadrática irreducible $s^2+\omega^2$ → $\frac{As+B}{s^2+\omega^2}$ (¡numerador con $s$!).</div></div>
+<div class="step"><div class="n">3</div><div class="body"><b class="t">Quita denominadores</b> multiplicando todo por $Q(s)$.</div></div>
+<div class="step"><div class="n">4</div><div class="body"><b class="t">Evalúa $s$ en cada raíz:</b> cada raíz mata todos los términos menos uno y te regala una constante. Para lo que falte usa $s=0$ o compara coeficientes.</div></div>
+<div class="tip"><b class="h">Ejemplo del examen 2023-2</b>
+$$\frac{3s+22}{(s-2)(s+5)} = \frac{A}{s-2}+\frac{B}{s+5} \Rightarrow 3s+22 = A(s+5)+B(s-2)$$
+$s=2:\; 28=7A \Rightarrow A=4$. $\;s=-5:\; 7=-7B \Rightarrow B=-1$. Entonces $x(t) = 4e^{2t}-e^{-5t}$. Directo a la tabla.</div>
+</section>
+
+<!-- ============ 2 ============ -->
+<section id="s2">
+<h2><span class="tag">P1</span>Modelar resortes — desde la física</h2>
+
+<h3>2.1 · La imagen mental (mírala hasta entenderla)</h3>
+<div class="fig">
+<svg viewBox="0 0 640 360" xmlns="http://www.w3.org/2000/svg">
+  <!-- techo -->
+  <rect x="30" y="20" width="580" height="14" fill="#9aa7c4"/>
+  <line x1="30" y1="34" x2="610" y2="34" stroke="#5c6579" stroke-width="2"/>
+  <!-- ESCENA 1: resorte natural -->
+  <g>
+    <polyline points="110,34 110,50 96,58 124,66 96,74 124,82 96,90 124,98 110,106 110,118" fill="none" stroke="#2f5cff" stroke-width="3"/>
+    <text x="110" y="140" text-anchor="middle" class="svglbl" fill="#5c6579">resorte solo</text>
+    <text x="110" y="158" text-anchor="middle" class="svglbl" fill="#5c6579">(largo natural)</text>
+  </g>
+  <!-- ESCENA 2: equilibrio -->
+  <g>
+    <polyline points="310,34 310,52 296,62 324,72 296,82 324,92 296,102 324,112 296,122 324,132 310,142 310,156" fill="none" stroke="#2f5cff" stroke-width="3"/>
+    <rect x="284" y="156" width="52" height="44" rx="6" fill="#ff8fab" stroke="#c62838" stroke-width="2"/>
+    <text x="310" y="184" text-anchor="middle" class="svglbl" fill="#7a1024">m</text>
+    <!-- S -->
+    <line x1="238" y1="118" x2="238" y2="178" stroke="#b45309" stroke-width="2" marker-end="url(#arr)" marker-start="url(#arr2)"/>
+    <text x="222" y="152" text-anchor="middle" class="svglbl" fill="#b45309">S</text>
+    <!-- fuerzas equilibrio -->
+    <line x1="360" y1="178" x2="360" y2="130" stroke="#0d9463" stroke-width="3" marker-end="url(#arrg)"/>
+    <text x="392" y="140" text-anchor="middle" class="svglbl" fill="#0d9463">kS</text>
+    <line x1="360" y1="200" x2="360" y2="248" stroke="#c62838" stroke-width="3" marker-end="url(#arrr)"/>
+    <text x="392" y="240" text-anchor="middle" class="svglbl" fill="#c62838">mg</text>
+    <text x="310" y="228" text-anchor="middle" class="svglbl" fill="#5c6579">EQUILIBRIO</text>
+    <text x="310" y="246" text-anchor="middle" class="svglbl" fill="#b45309">mg = kS → k = mg/S</text>
+  </g>
+  <!-- ESCENA 3: en movimiento -->
+  <g>
+    <polyline points="530,34 530,54 516,66 544,78 516,90 544,102 516,114 544,126 516,138 544,150 530,162 530,178" fill="none" stroke="#2f5cff" stroke-width="3"/>
+    <rect x="504" y="178" width="52" height="44" rx="6" fill="#ff8fab" stroke="#c62838" stroke-width="2"/>
+    <text x="530" y="206" text-anchor="middle" class="svglbl" fill="#7a1024">m</text>
+    <!-- linea equilibrio -->
+    <line x1="470" y1="168" x2="600" y2="168" stroke="#5c6579" stroke-width="1.5" stroke-dasharray="6 5"/>
+    <text x="600" y="162" text-anchor="end" class="svglbl" fill="#5c6579" font-size="11">x = 0 (equilibrio)</text>
+    <!-- x positivo abajo -->
+    <line x1="472" y1="172" x2="472" y2="216" stroke="#6d28d9" stroke-width="2.5" marker-end="url(#arrv)"/>
+    <text x="458" y="200" text-anchor="middle" class="svglbl" fill="#6d28d9">x +</text>
+    <text x="530" y="252" text-anchor="middle" class="svglbl" fill="#5c6579">EN MOVIMIENTO</text>
+    <text x="530" y="270" text-anchor="middle" class="svglbl" fill="#6d28d9">x se mide DESDE el</text>
+    <text x="530" y="286" text-anchor="middle" class="svglbl" fill="#6d28d9">equilibrio, + hacia abajo</text>
+  </g>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#b45309"/></marker>
+    <marker id="arr2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="#b45309"/></marker>
+    <marker id="arrg" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#0d9463"/></marker>
+    <marker id="arrr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#c62838"/></marker>
+    <marker id="arrv" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#6d28d9"/></marker>
+  </defs>
+</svg>
+<div class="cap">Las 3 fotos del problema: resorte solo → cuelgas la masa y se estira S hasta el equilibrio → la masa se mueve y $x(t)$ mide cuánto se aleja del equilibrio (positivo hacia abajo).</div>
+</div>
+
+<div class="key"><b class="h">La idea nº1 que hay que entender</b>
+La variable $x(t)$ <b>NO se mide desde el techo ni desde el largo natural</b>: se mide desde la <b>posición de equilibrio</b>. Gracias a eso, el peso $mg$ y el estiramiento inicial $kS$ se cancelan entre sí y desaparecen de la ecuación. Por eso el modelo final no tiene $mg$ por ningún lado.</div>
+
+<h3>2.2 · Construcción del modelo, fuerza por fuerza</h3>
+<p>Segunda ley de Newton: $m\,x'' = \sum F$ (masa × aceleración = suma de fuerzas). ¿Quién empuja o jala al bloque cuando está a distancia $x$ del equilibrio, moviéndose con velocidad $x'$?</p>
+<div class="step"><div class="n">1</div><div class="body"><b class="t">El resorte: $-k\,x$.</b>
+Si el bloque baja ($x&gt;0$), el resorte está más estirado de la cuenta y jala <b>hacia arriba</b> (negativo). Si sube, lo empuja hacia abajo. Siempre se opone: por eso el signo menos.
+<span class="why">El $-kS$ del estiramiento base ya se canceló con $mg$; aquí solo queda el estiramiento EXTRA $x$.</span></div></div>
+<div class="step"><div class="n">2</div><div class="body"><b class="t">El amortiguador: $-C\,x'$.</b>
+"Una fuerza de amortiguamiento igual a $C$ veces la velocidad instantánea" = fricción del medio. Se opone a la <b>velocidad</b> (no a la posición): si bajas rápido, te frena hacia arriba.</div></div>
+<div class="step"><div class="n">3</div><div class="body"><b class="t">La fuerza externa: $+f(t)$.</b>
+Alguien empuja al bloque desde afuera (un motor, un imán…). Va con su propio signo, tal cual la den.</div></div>
+<div class="step"><div class="n">4</div><div class="body"><b class="t">Júntalo todo:</b>
+$$m\,x'' = -k x - C x' + f(t) \qquad\Longrightarrow\qquad \boxed{\,m\,x'' + C\,x' + k\,x = f(t)\,}$$
+<span class="why">Solo pasé todo a la izquierda. Esta caja es EL modelo; en el examen escribes esto y sustituyes números.</span></div></div>
+
+<h4>¿Y de dónde saco $k$? (1 punto casi regalado)</h4>
+<p>Del dato "la masa estira el resorte $S$ metros hasta el equilibrio". En ese punto nada se mueve, así que el jalón del resorte iguala al peso (míralo en la figura, escena 2):</p>
+$$mg = kS \;\;\Rightarrow\;\; k = \frac{mg}{S} \qquad (\text{usa } g = 10 \text{ salvo que digan otra cosa})$$
+
+<div class="warn"><b class="h">⚠️ Signos de las condiciones iniciales (positivo = HACIA ABAJO)</b>
+<table>
+<tr><th>Frase del enunciado</th><th>Traducción</th></tr>
+<tr><td>"se libera 1 m <b>por debajo</b> del equilibrio"</td><td>$x(0) = +1$</td></tr>
+<tr><td>"velocidad <b>descendente</b> de 5 m/s"</td><td>$x'(0) = +5$</td></tr>
+<tr><td>"velocidad <b>ascendente</b> de 2 m/s"</td><td>$x'(0) = -2$</td></tr>
+<tr><td>"parte del equilibrio" / "en reposo"</td><td>$x(0)=0$ / $x'(0)=0$</td></tr>
+</table></div>
+
+<h3>2.3 · Solucionario: modelado (2024-1, P1a)</h3>
+<div class="enun">Masa de 1 kg estira el resorte $\tfrac58$ m. Se libera 1 m debajo del equilibrio con velocidad descendente de 5 m/s. Amortiguamiento = 10 veces la velocidad. Fuerza externa $f(t)$. $g=10$.</div>
+<div class="step"><div class="n">1</div><div class="body"><b class="t">$k$ por equilibrio:</b> $k\cdot\tfrac58 = 1\cdot 10 \Rightarrow k = 16$.</div></div>
+<div class="step"><div class="n">2</div><div class="body"><b class="t">Identificar cada letra:</b> $m=1$ ("masa de 1 kg"), $C=10$ ("10 veces la velocidad"), $k=16$ (recién calculado):
+$$x'' + 10x' + 16x = f(t)$$</div></div>
+<div class="step"><div class="n">3</div><div class="body"><b class="t">CI con la tabla de signos:</b> debajo → $x(0)=+1$; descendente → $x'(0)=+5$.</div></div>
+<div class="answer">$x'' + 10x' + 16x = f(t)$, con $x(0)=1,\; x'(0)=5$ — tres puntos en cuatro líneas.</div>
+
+<h3>2.4 · Solucionario: resolver la EDO completa (2024-1, P1b)</h3>
+<div class="enun">Resolver $x'' + 2x' + 17x = 48e^{-2t}\cos 3t$, con $x(0)=0$, $x'(0)=1$.</div>
+<div class="step"><div class="n">1</div><div class="body"><b class="t">Homogénea.</b> $r^2+2r+17=0 \Rightarrow r = -1\pm 4i$ (fórmula general, $\sqrt{-64}=8i$):
+$$x_h = e^{-t}[C_1\cos 4t + C_2\sin 4t]$$</div></div>
+<div class="step"><div class="n">2</div><div class="body"><b class="t">Proponer particular.</b> $f$ es $e^{-2t}\cos 3t$ → tabla:
+$$x_p = e^{-2t}[A\cos 3t + B\sin 3t]$$
+<span class="why">¿Resonancia? $x_h$ tiene $e^{-t}$ y frecuencia 4; esto tiene $e^{-2t}$ y frecuencia 3. Distintos → NO. Sigo normal.</span></div></div>
+<div class="step"><div class="n">3</div><div class="body"><b class="t">Derivar dos veces</b> (producto; agrupa $\cos$/$\sin$ en cada paso, sin apuro):
+$$x_p' = e^{-2t}[(-2A+3B)\cos 3t + (-3A-2B)\sin 3t]$$
+$$x_p'' = e^{-2t}[(-5A-12B)\cos 3t + (12A-5B)\sin 3t]$$</div></div>
+<div class="step"><div class="n">4</div><div class="body"><b class="t">Sustituir y agrupar.</b> $x_p''+2x_p'+17x_p$, cancelo $e^{-2t}$:
+coef. de $\cos 3t$: $8A - 6B$ &nbsp;·&nbsp; coef. de $\sin 3t$: $6A + 8B$. Igualo a $48$ y $0$:
+$$8A - 6B = 48 \qquad 6A + 8B = 0 \;\Rightarrow\; A = \tfrac{96}{25},\; B = -\tfrac{72}{25}$$</div></div>
+<div class="step"><div class="n">5</div><div class="body"><b class="t">General + CI.</b>
+$$x = e^{-t}[C_1\cos 4t + C_2\sin 4t] + e^{-2t}\big[\tfrac{96}{25}\cos 3t - \tfrac{72}{25}\sin 3t\big]$$
+$x(0)=0 \Rightarrow C_1 = -\tfrac{96}{25}$. Derivando y evaluando en 0: $C_2 = \tfrac{337}{100}$.</div></div>
+<div class="answer">$x(t) = e^{-t}\big[-\tfrac{96}{25}\cos 4t + \tfrac{337}{100}\sin 4t\big] + e^{-2t}\big[\tfrac{96}{25}\cos 3t - \tfrac{72}{25}\sin 3t\big]$</div>
+<div class="tip"><b class="h">Verificación de 20 s</b>Sustituye $t=0$: $-\tfrac{96}{25}+\tfrac{96}{25}=0$ ✔ coincide con $x(0)=0$. Hazlo SIEMPRE.</div>
+
+<h3>2.5 · Resonancia (2023-2, P1c)</h3>
+<div class="enun">Solución general de $x'' + 16x = -5\sin 4t + 2\cos 4t$.</div>
+<div class="step"><div class="n">1</div><div class="body">$r^2+16=0 \Rightarrow r=\pm4i \Rightarrow x_h = C_1\cos 4t + C_2\sin 4t$.</div></div>
+<div class="step"><div class="n">2</div><div class="body"><b class="t">¡Alerta!</b> La propuesta natural $A\cos 4t + B\sin 4t$ YA está en $x_h$ (misma frecuencia 4). Multiplico por $t$:
+$$x_p = t\,[A\cos 4t + B\sin 4t]$$</div></div>
+<div class="step"><div class="n">3</div><div class="body"><b class="t">Derivo y sustituyo.</b> Los términos con $t$ se cancelan solos (esa es la gracia) y queda:
+$$-8A\sin 4t + 8B\cos 4t = -5\sin 4t + 2\cos 4t \Rightarrow A = \tfrac58,\; B = \tfrac14$$</div></div>
+<div class="answer">$x = C_1\cos 4t + C_2\sin 4t + t\big[\tfrac58\cos 4t + \tfrac14\sin 4t\big]$ &nbsp;<span class="why">(el factor $t$ hace crecer la amplitud sin límite: eso ES la resonancia física)</span></div>
+
+<h3>2.6 · Los 3 tipos de amortiguamiento (pregunta conceptual fija)</h3>
+<div class="fig">
+<svg viewBox="0 0 640 240" xmlns="http://www.w3.org/2000/svg">
+  <line x1="40" y1="120" x2="620" y2="120" stroke="#c6cede" stroke-width="1.5"/>
+  <line x1="40" y1="30" x2="40" y2="210" stroke="#5c6579" stroke-width="1.5"/>
+  <text x="628" y="124" class="svglbl" fill="#5c6579" font-size="12">t</text>
+  <text x="36" y="24" text-anchor="end" class="svglbl" fill="#5c6579" font-size="12">x</text>
+  <!-- subamortiguado -->
+  <path d="M40,40 C70,40 75,196 105,196 C135,196 138,68 168,68 C198,68 200,164 230,164 C260,164 262,90 292,90 C322,90 325,144 355,144 C385,144 390,104 420,104 C450,104 460,132 490,132 C520,132 540,114 620,118" fill="none" stroke="#2f5cff" stroke-width="2.5"/>
+  <!-- sobre -->
+  <path d="M40,44 C160,50 300,108 620,118" fill="none" stroke="#c62838" stroke-width="2.5" stroke-dasharray="7 5"/>
+  <!-- critico -->
+  <path d="M40,44 C110,50 200,114 380,119 L620,120" fill="none" stroke="#0d9463" stroke-width="2.5" stroke-dasharray="2 4"/>
+  <text x="470" y="60" class="svglbl" fill="#2f5cff">subamortiguado: oscila y decae</text>
+  <text x="470" y="80" class="svglbl" fill="#0d9463">crítico: vuelve lo más rápido posible</text>
+  <text x="470" y="100" class="svglbl" fill="#c62838">sobreamortiguado: lento, sin oscilar</text>
+</svg>
+<div class="cap">Las tres formas de volver al equilibrio, según cuánta fricción hay.</div>
+</div>
+<div class="key"><b class="h">La condición que preguntan (cayó 2023-2)</b>
+Todo depende del discriminante de la característica $mr^2 + Cr + k = 0$:
+$$\text{sobreamortiguado: } \Big(\frac{C}{2m}\Big)^2 > \frac{k}{m} \qquad \text{crítico: } = \qquad \text{subamortiguado: } &lt;$$
+Con $k = \tfrac{mg}{S}$, la respuesta del examen fue: $\dfrac{C^2}{4M^2} &gt; \dfrac{g}{S}$.</div>
+<div class="key"><b class="h">Transitoria vs. estable + amplitud final (cayó 2023-2)</b>
+En la solución total, los términos con $e^{-at}$ <b>mueren</b> cuando $t\to\infty$ → <b>transitoria</b>. Los $\cos/\sin$ puros que sobreviven → <b>estable</b>. La "amplitud después de mucho tiempo" es el coeficiente de la parte estable: si sobrevive $\tfrac{\sqrt{85}}{4}\sin(4t+\theta)$, la amplitud es $\tfrac{\sqrt{85}}{4}$.</div>
+
+<!-- QUIZ RESORTES -->
+<div class="quizzone">
+<b class="qt">🎮 Quiz — Resortes</b>
+<div class="sub">Toca una opción; te digo al instante si es correcta y por qué.</div>
+
+<div class="quiz" data-a="1">
+<p class="q">1. Una masa de 2 kg estira el resorte 0.4 m ($g=10$). ¿Cuánto vale $k$?</p>
+<button class="opt">$k = 8$</button>
+<button class="opt">$k = 50$</button>
+<button class="opt">$k = 0.8$</button>
+<div class="expl"><b>Equilibrio:</b> $mg = kS \Rightarrow k = \frac{(2)(10)}{0.4} = 50$. El error típico es multiplicar $mg\cdot S$ en vez de dividir.</div>
+</div>
+
+<div class="quiz" data-a="2">
+<p class="q">2. "Se libera 2 m por debajo del equilibrio con velocidad ascendente de 3 m/s". ¿Condiciones iniciales?</p>
+<button class="opt">$x(0)=-2,\; x'(0)=3$</button>
+<button class="opt">$x(0)=2,\; x'(0)=3$</button>
+<button class="opt">$x(0)=2,\; x'(0)=-3$</button>
+<div class="expl"><b>Positivo = hacia abajo.</b> Debajo del equilibrio → $x(0)=+2$. Ascendente = hacia arriba → $x'(0)=-3$. Este signo mata más puntos que cualquier otra cosa en P1.</div>
+</div>
+
+<div class="quiz" data-a="0">
+<p class="q">3. Para $x'' + 4x = 7\sin(2t)$, ¿qué solución particular propones?</p>
+<button class="opt">$x_p = t\,[A\cos 2t + B\sin 2t]$</button>
+<button class="opt">$x_p = A\sin 2t$</button>
+<button class="opt">$x_p = A\cos 2t + B\sin 2t$</button>
+<div class="expl"><b>¡Resonancia!</b> La homogénea es $C_1\cos 2t + C_2\sin 2t$ (raíces $\pm 2i$) — la misma frecuencia 2 del lado derecho. Hay que multiplicar por $t$. Y siempre con ambos, cos y sin.</div>
+</div>
+
+<div class="quiz" data-a="2">
+<p class="q">4. En $x(t) = 5e^{-3t}\cos t - 2e^{-3t}\sin t + 4\cos t + \sin t$, la solución ESTABLE es…</p>
+<button class="opt">$5e^{-3t}\cos t - 2e^{-3t}\sin t$</button>
+<button class="opt">toda la expresión</button>
+<button class="opt">$4\cos t + \sin t$</button>
+<div class="expl">Los términos con $e^{-3t}$ tienden a 0 (transitorios). Lo que sobrevive cuando $t\to\infty$ es $4\cos t + \sin t$: la parte estable.</div>
+</div>
+
+<div class="quiz" data-a="1">
+<p class="q">5. Raíces $r = -2 \pm 5i$. ¿Solución homogénea?</p>
+<button class="opt">$C_1e^{-2t} + C_2e^{5t}$</button>
+<button class="opt">$e^{-2t}[C_1\cos 5t + C_2\sin 5t]$</button>
+<button class="opt">$e^{5t}[C_1\cos 2t + C_2\sin 2t]$</button>
+<div class="expl">Complejas $\alpha\pm\beta i$: la parte REAL $\alpha=-2$ va en la exponencial, la IMAGINARIA $\beta=5$ es la frecuencia del cos/sin.</div>
+</div>
+</div>
+</section>
+
+<!-- ============ 3 ============ -->
+<section id="s3">
+<h2><span class="tag">P2a</span>Modelar circuitos — desde cero</h2>
+
+<h3>3.1 · Los tres personajes y sus "caídas de voltaje"</h3>
+<p>Un circuito es como una tubería de agua: la fuente $E(t)$ es la bomba que empuja, la corriente $I$ es el caudal, y cada componente "cobra un peaje" de voltaje al pasar:</p>
+<div class="fig">
+<svg viewBox="0 0 640 150" xmlns="http://www.w3.org/2000/svg">
+  <!-- R -->
+  <g>
+    <line x1="30" y1="60" x2="60" y2="60" stroke="#1b2337" stroke-width="2.5"/>
+    <polyline points="60,60 68,45 84,75 100,45 116,75 132,45 140,60" fill="none" stroke="#c62838" stroke-width="2.5"/>
+    <line x1="140" y1="60" x2="170" y2="60" stroke="#1b2337" stroke-width="2.5"/>
+    <text x="100" y="30" text-anchor="middle" class="svglbl" fill="#c62838">Resistencia R</text>
+    <text x="100" y="100" text-anchor="middle" class="svglbl" fill="#1b2337">V = R·I</text>
+    <text x="100" y="122" text-anchor="middle" font-size="12" fill="#5c6579">fricción: cobra según</text>
+    <text x="100" y="138" text-anchor="middle" font-size="12" fill="#5c6579">cuánta corriente pasa</text>
+  </g>
+  <!-- L -->
+  <g>
+    <line x1="240" y1="60" x2="266" y2="60" stroke="#1b2337" stroke-width="2.5"/>
+    <path d="M266,60 a10,12 0 0 1 20,0 a10,12 0 0 1 20,0 a10,12 0 0 1 20,0 a10,12 0 0 1 20,0" fill="none" stroke="#2f5cff" stroke-width="2.5"/>
+    <line x1="346" y1="60" x2="372" y2="60" stroke="#1b2337" stroke-width="2.5"/>
+    <text x="306" y="30" text-anchor="middle" class="svglbl" fill="#2f5cff">Bobina L</text>
+    <text x="306" y="100" text-anchor="middle" class="svglbl" fill="#1b2337">V = L·dI/dt</text>
+    <text x="306" y="122" text-anchor="middle" font-size="12" fill="#5c6579">inercia: cobra según qué tan</text>
+    <text x="306" y="138" text-anchor="middle" font-size="12" fill="#5c6579">rápido CAMBIA la corriente</text>
+  </g>
+  <!-- C -->
+  <g>
+    <line x1="440" y1="60" x2="495" y2="60" stroke="#1b2337" stroke-width="2.5"/>
+    <line x1="495" y1="38" x2="495" y2="82" stroke="#0d9463" stroke-width="3.5"/>
+    <line x1="513" y1="38" x2="513" y2="82" stroke="#0d9463" stroke-width="3.5"/>
+    <line x1="513" y1="60" x2="568" y2="60" stroke="#1b2337" stroke-width="2.5"/>
+    <text x="504" y="30" text-anchor="middle" class="svglbl" fill="#0d9463">Condensador C</text>
+    <text x="504" y="100" text-anchor="middle" class="svglbl" fill="#1b2337">V = Q/C</text>
+    <text x="504" y="122" text-anchor="middle" font-size="12" fill="#5c6579">tanque: cobra según cuánta</text>
+    <text x="504" y="138" text-anchor="middle" font-size="12" fill="#5c6579">carga Q acumuló (I = dQ/dt)</text>
+  </g>
+</svg>
+<div class="cap">Las tres caídas de voltaje. Vienen en el formulario, pero entenderlas te salva si te bloqueas.</div>
+</div>
+
+<h3>3.2 · Circuito RLC en serie = masa-resorte disfrazado</h3>
+<div class="fig">
+<svg viewBox="0 0 640 230" xmlns="http://www.w3.org/2000/svg">
+  <!-- lazo -->
+  <line x1="100" y1="40" x2="240" y2="40" stroke="#1b2337" stroke-width="2.5"/>
+  <polyline points="240,40 248,26 264,54 280,26 296,54 312,26 320,40" fill="none" stroke="#c62838" stroke-width="2.5"/>
+  <line x1="320" y1="40" x2="470" y2="40" stroke="#1b2337" stroke-width="2.5"/>
+  <text x="280" y="16" text-anchor="middle" class="svglbl" fill="#c62838">R</text>
+  <!-- C derecha -->
+  <line x1="470" y1="40" x2="470" y2="105" stroke="#1b2337" stroke-width="2.5"/>
+  <line x1="448" y1="105" x2="492" y2="105" stroke="#0d9463" stroke-width="3.5"/>
+  <line x1="448" y1="122" x2="492" y2="122" stroke="#0d9463" stroke-width="3.5"/>
+  <line x1="470" y1="122" x2="470" y2="190" stroke="#1b2337" stroke-width="2.5"/>
+  <text x="506" y="118" class="svglbl" fill="#0d9463">C</text>
+  <!-- abajo con L -->
+  <line x1="470" y1="190" x2="330" y2="190" stroke="#1b2337" stroke-width="2.5"/>
+  <path d="M330,190 a10,12 0 0 1 -20,0 a10,12 0 0 1 -20,0 a10,12 0 0 1 -20,0 a10,12 0 0 1 -20,0" fill="none" stroke="#2f5cff" stroke-width="2.5"/>
+  <line x1="250" y1="190" x2="100" y2="190" stroke="#1b2337" stroke-width="2.5"/>
+  <text x="290" y="222" text-anchor="middle" class="svglbl" fill="#2f5cff">L</text>
+  <!-- fuente izquierda -->
+  <line x1="100" y1="40" x2="100" y2="95" stroke="#1b2337" stroke-width="2.5"/>
+  <circle cx="100" cy="115" r="20" fill="none" stroke="#b45309" stroke-width="2.5"/>
+  <text x="100" y="121" text-anchor="middle" class="svglbl" fill="#b45309">E(t)</text>
+  <line x1="100" y1="135" x2="100" y2="190" stroke="#1b2337" stroke-width="2.5"/>
+  <!-- corriente -->
+  <path d="M150,68 a55,40 0 0 1 90,0" fill="none" stroke="#6d28d9" stroke-width="2" marker-end="url(#arrv2)"/>
+  <text x="195" y="92" text-anchor="middle" class="svglbl" fill="#6d28d9">i(t)</text>
+  <defs><marker id="arrv2" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#6d28d9"/></marker></defs>
+</svg>
+<div class="cap">Una sola malla: la fuente empuja y los tres componentes cobran su caída.</div>
+</div>
+<p><b>Ley de voltajes de Kirchhoff</b> (la única ley que necesitas): al recorrer un lazo cerrado, <b>la suma de caídas = lo que da la fuente</b>. Sumo los tres peajes:</p>
+$$\underbrace{L\,q''}_{\text{bobina}} + \underbrace{R\,q'}_{\text{resistencia}} + \underbrace{\tfrac{1}{C}\,q}_{\text{condensador}} = E(t)$$
+<span class="why">Escribí todo en función de la carga $q$ usando $i = q'$ (entonces $\frac{di}{dt} = q''$).</span>
+<div class="idea"><b class="h">El diccionario resorte ↔ circuito (mismo examen, distinto disfraz)</b>
+<table>
+<tr><th>Resorte</th><th>Circuito</th><th>Papel</th></tr>
+<tr><td>masa $m$</td><td>inductancia $L$</td><td>inercia</td></tr>
+<tr><td>amortiguador $C$</td><td>resistencia $R$</td><td>fricción / disipación</td></tr>
+<tr><td>constante $k$</td><td>$1/C$</td><td>restauración</td></tr>
+<tr><td>posición $x$</td><td>carga $q$</td><td>la incógnita</td></tr>
+<tr><td>velocidad $x'$</td><td>corriente $i = q'$</td><td>su derivada</td></tr>
+</table>
+Todo lo de la sección de resortes (característica, particular, resonancia, transitoria/estable) aplica idéntico.</div>
+
+<h4>Solucionario RLC (2023-2 v2, P2a)</h4>
+<div class="enun">$L=1$, $R=2$, $C=\tfrac15$, $q(0)=20$, $q'(0)=0$, sin fuente. ¿Qué pasa con $i(t)$ tras mucho tiempo?</div>
+<div class="step"><div class="n">1</div><div class="body">Sustituyo ($\tfrac1C = 5$): $\;q'' + 2q' + 5q = 0$, con $q(0)=20$, $q'(0)=0$.</div></div>
+<div class="step"><div class="n">2</div><div class="body">$r^2+2r+5=0 \Rightarrow r = -1\pm 2i \Rightarrow q = e^{-t}[C_1\cos 2t + C_2\sin 2t]$.</div></div>
+<div class="step"><div class="n">3</div><div class="body">CI: $C_1 = 20$; derivando y evaluando: $-C_1 + 2C_2 = 0 \Rightarrow C_2 = 10$.</div></div>
+<div class="step"><div class="n">4</div><div class="body">$q = e^{-t}[20\cos 2t + 10\sin 2t]$; la corriente $i = q' = -50e^{-t}\sin 2t$.</div></div>
+<div class="answer">Cuando $t\to\infty$, $e^{-t}\to 0$: la corriente <b>tiende a 0</b>.</div>
+
+<h3>3.3 · Dos mallas → forma matricial $X' = AX + b$</h3>
+<div class="fig">
+<svg viewBox="0 0 640 250" xmlns="http://www.w3.org/2000/svg">
+  <!-- marco exterior -->
+  <line x1="80" y1="40" x2="200" y2="40" stroke="#1b2337" stroke-width="2.5"/>
+  <polyline points="200,40 208,26 224,54 240,26 256,54 272,26 280,40" fill="none" stroke="#c62838" stroke-width="2.5"/>
+  <text x="240" y="16" text-anchor="middle" class="svglbl" fill="#c62838">R₁</text>
+  <line x1="280" y1="40" x2="560" y2="40" stroke="#1b2337" stroke-width="2.5"/>
+  <line x1="560" y1="40" x2="560" y2="200" stroke="#1b2337" stroke-width="2.5"/>
+  <line x1="560" y1="200" x2="80" y2="200" stroke="#1b2337" stroke-width="2.5"/>
+  <!-- fuente -->
+  <line x1="80" y1="40" x2="80" y2="100" stroke="#1b2337" stroke-width="2.5"/>
+  <circle cx="80" cy="120" r="20" fill="none" stroke="#b45309" stroke-width="2.5"/>
+  <text x="80" y="126" text-anchor="middle" class="svglbl" fill="#b45309">V(t)</text>
+  <line x1="80" y1="140" x2="80" y2="200" stroke="#1b2337" stroke-width="2.5"/>
+  <!-- rama central R3 -->
+  <line x1="330" y1="40" x2="330" y2="85" stroke="#1b2337" stroke-width="2.5"/>
+  <polyline points="330,85 316,93 344,101 316,109 344,117 316,125 344,133 330,141" fill="none" stroke="#0d9463" stroke-width="2.5"/>
+  <line x1="330" y1="141" x2="330" y2="200" stroke="#1b2337" stroke-width="2.5"/>
+  <text x="356" y="118" class="svglbl" fill="#0d9463">R₃</text>
+  <text x="330" y="228" text-anchor="middle" font-size="12" fill="#0d9463">rama COMPARTIDA: lleva (I₁ − I₂)</text>
+  <!-- L derecha -->
+  <path d="M560,90 a12,10 0 0 1 0,20 a12,10 0 0 1 0,20 a12,10 0 0 1 0,20" fill="none" stroke="#2f5cff" stroke-width="2.5"/>
+  <text x="586" y="125" class="svglbl" fill="#2f5cff">L₁</text>
+  <!-- lazos -->
+  <path d="M170,105 a40,30 0 1 1 -1,1" fill="none" stroke="#6d28d9" stroke-width="1.8" marker-end="url(#arrv3)"/>
+  <text x="205" y="112" class="svglbl" fill="#6d28d9">I₁</text>
+  <path d="M445,105 a40,30 0 1 1 -1,1" fill="none" stroke="#6d28d9" stroke-width="1.8" marker-end="url(#arrv3)"/>
+  <text x="480" y="112" class="svglbl" fill="#6d28d9">I₂</text>
+  <defs><marker id="arrv3" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="#6d28d9"/></marker></defs>
+</svg>
+<div class="cap">Dos mallas con una rama compartida en el medio (esquema tipo examen). Cada malla tiene su corriente de lazo $I_1$, $I_2$.</div>
+</div>
+<div class="idea"><b class="h">La regla de oro de la rama compartida</b>
+Por la rama del medio pasan las DOS corrientes de lazo, en sentidos opuestos. Su corriente neta es $(I_1 - I_2)$. Cuando recorras la malla 1, el elemento del medio cobra con $(I_1-I_2)$; cuando recorras la malla 2, con $(I_2-I_1)$ — mismo valor, signo opuesto.</div>
+<div class="step"><div class="n">1</div><div class="body"><b class="t">Malla izquierda:</b> suma de caídas = fuente. Cobra $R_1$ (solo $I_1$), la rama central (con $I_1-I_2$) y lo que haya en su camino:
+$$R_1 I_1 + R_3(I_1 - I_2) + L_2 I_1' = V(t)$$</div></div>
+<div class="step"><div class="n">2</div><div class="body"><b class="t">Malla derecha:</b> igual pero $=0$ (no tiene fuente):
+$$-R_3(I_1 - I_2) + L_1 I_2' + R_2 I_2 = 0$$</div></div>
+<div class="step"><div class="n">3</div><div class="body"><b class="t">Despeja las derivadas</b> (cada una sola a la izquierda):
+$$I_1' = -\tfrac{R_1+R_3}{L_2} I_1 + \tfrac{R_3}{L_2} I_2 + \tfrac{V(t)}{L_2} \qquad I_2' = \tfrac{R_3}{L_1} I_1 - \tfrac{R_2+R_3}{L_1} I_2$$</div></div>
+<div class="step"><div class="n">4</div><div class="body"><b class="t">Copia los coeficientes a la matriz</b> — fila 1 = ecuación de $I_1'$, fila 2 = la de $I_2'$; la fuente va aparte en $b$:
+$$\begin{pmatrix} I_1' \\ I_2' \end{pmatrix} = \begin{pmatrix} -\frac{R_1+R_3}{L_2} & \frac{R_3}{L_2} \\[5px] \frac{R_3}{L_1} & -\frac{R_2+R_3}{L_1} \end{pmatrix} \begin{pmatrix} I_1 \\ I_2 \end{pmatrix} + \begin{pmatrix} \frac{V(t)}{L_2} \\ 0 \end{pmatrix}$$
+<span class="why">Si despejaste bien las derivadas, la matriz "se escribe sola": es literalmente copiar. 3 puntos.</span></div></div>
+
+<div class="tip"><b class="h">Variante: masas acopladas (2024-1)</b>
+Dos masas ($m$, $2m$) y tres resortes en columna. El resorte del medio SIEMPRE trabaja con la diferencia $(x_2 - x_1)$: positivo en la ecuación de la masa de arriba, negativo en la de abajo:
+$$m x_1'' = -k_1 x_1 + k_2(x_2 - x_1) \qquad\quad 2m\,x_2'' = -k_2(x_2 - x_1) - k_3 x_2$$</div>
+
+<!-- QUIZ CIRCUITOS -->
+<div class="quizzone">
+<b class="qt">🎮 Quiz — Circuitos</b>
+<div class="sub">La parte de modelado es la más mecánica del examen: si aciertas estas, ya la tienes.</div>
+
+<div class="quiz" data-a="0">
+<p class="q">1. En un RLC serie con $L=2$, $R=8$, $C=\tfrac{1}{10}$, la EDO de la carga es…</p>
+<button class="opt">$2q'' + 8q' + 10q = E(t)$</button>
+<button class="opt">$2q'' + 8q' + \tfrac{1}{10}q = E(t)$</button>
+<button class="opt">$8q'' + 2q' + 10q = E(t)$</button>
+<div class="expl">$Lq'' + Rq' + \frac{1}{C}q = E$. El condensador entra como $\frac{1}{C} = 10$, no como $C$. Es EL error típico.</div>
+</div>
+
+<div class="quiz" data-a="2">
+<p class="q">2. En la malla izquierda de un circuito de dos mallas, la resistencia compartida $R_3$ cobra…</p>
+<button class="opt">$R_3\,I_1$</button>
+<button class="opt">$R_3\,I_2$</button>
+<button class="opt">$R_3\,(I_1 - I_2)$</button>
+<div class="expl">Por la rama compartida pasan ambas corrientes en sentidos opuestos: corriente neta $I_1 - I_2$ vista desde la malla 1 (y $I_2-I_1$ desde la malla 2).</div>
+</div>
+
+<div class="quiz" data-a="1">
+<p class="q">3. Si despejas $I_1' = -3I_1 + 2I_2 + 5E(t)$ e $I_2' = 4I_1 - 7I_2$, la matriz $A$ es…</p>
+<button class="opt">$\begin{pmatrix} -3 & 4 \\ 2 & -7 \end{pmatrix}$</button>
+<button class="opt">$\begin{pmatrix} -3 & 2 \\ 4 & -7 \end{pmatrix}$</button>
+<button class="opt">$\begin{pmatrix} 3 & 2 \\ 4 & 7 \end{pmatrix}$</button>
+<div class="expl">Fila 1 = coeficientes de la ecuación de $I_1'$ (en orden: el de $I_1$, el de $I_2$). Fila 2 = los de $I_2'$. El $5E(t)$ va en el vector $b = \binom{5E(t)}{0}$, NO en la matriz.</div>
+</div>
+
+<div class="quiz" data-a="0">
+<p class="q">4. La corriente $i(t)$ y la carga $q(t)$ se relacionan por…</p>
+<button class="opt">$i = q'$</button>
+<button class="opt">$q = i'$</button>
+<button class="opt">$i = q/C$</button>
+<div class="expl">La corriente es el flujo de carga: $i = \frac{dq}{dt}$. Por eso si te piden la corriente al final, derivas la carga que hallaste.</div>
+</div>
+</div>
+</section>
+
+<!-- ============ 4 ============ -->
+<section id="s4">
+<h2><span class="tag">P2b</span>Sistemas de EDOs con Laplace</h2>
+<div class="idea"><b class="h">Receta universal (funciona en TODOS los que han tomado)</b>
+① transforma cada ecuación → ② mete las CI → ③ ordena como sistema 2×2 en $X(s), Y(s)$ → ④ Cramer o eliminación → ⑤ fracciones parciales → ⑥ inversa.</div>
+
+<h3>4.1 · Solucionario paso a paso (2023-2, P2b)</h3>
+<div class="enun">$x' = -x + 4y$, $\;y' = 3x - 2y$, con $x(0)=3$, $y(0)=4$.</div>
+<div class="step"><div class="n">1</div><div class="body"><b class="t">Transformar</b> con $\mathcal{L}\{x'\}=sX-x(0)$ (las CI entran solas):
+$$sX - 3 = -X + 4Y \qquad\qquad sY - 4 = 3X - 2Y$$</div></div>
+<div class="step"><div class="n">2</div><div class="body"><b class="t">Ordenar</b> (incógnitas a la izquierda, números a la derecha):
+$$(s+1)X - 4Y = 3 \qquad\qquad -3X + (s+2)Y = 4$$
+<span class="why">Ahora es un sistema de secundaria donde los "números" tienen $s$ adentro.</span></div></div>
+<div class="step"><div class="n">3</div><div class="body"><b class="t">Eliminar $Y$:</b> multiplico la 1.ª por $(s+2)$, la 2.ª por 4, sumo:
+$$\big[(s+1)(s+2)-12\big]X = 3(s+2)+16 \Rightarrow X = \frac{3s+22}{(s-2)(s+5)}$$</div></div>
+<div class="step"><div class="n">4</div><div class="body"><b class="t">Fracciones parciales:</b> $A=4$ (con $s=2$), $B=-1$ (con $s=-5$) — hecho arriba en §1.4.</div></div>
+<div class="step"><div class="n">5</div><div class="body"><b class="t">Inversa</b> y repetir para $Y$: $Y = \frac{4s+13}{(s-2)(s+5)} = \frac{3}{s-2}+\frac{1}{s+5}$.</div></div>
+<div class="answer">$x(t) = 4e^{2t} - e^{-5t}, \qquad y(t) = 3e^{2t} + e^{-5t}$</div>
+
+<h3>4.2 · Con segundas derivadas y Cramer (2024-1, P2b)</h3>
+<div class="enun">$x'' = y - x$, $\;y'' = x - y$; $x(0)=0$, $x'(0)=-2$, $y(0)=0$, $y'(0)=1$.</div>
+<div class="step"><div class="n">1</div><div class="body"><b class="t">Transformar</b> ($x''$ usa DOS condiciones): $s^2X + 2 = Y - X$ y $s^2Y - 1 = X - Y$.</div></div>
+<div class="step"><div class="n">2</div><div class="body"><b class="t">Ordenar:</b> $(s^2+1)X - Y = -2$ y $-X + (s^2+1)Y = 1$.</div></div>
+<div class="step"><div class="n">3</div><div class="body"><b class="t">Cramer.</b> Determinante:
+$$\Delta = (s^2+1)^2 - 1 = s^2(s^2+2) \quad\text{(diferencia de cuadrados — siempre factoriza bonito)}$$
+$$X(s) = \frac{-2(s^2+1)+1}{\Delta} = \frac{-2s^2-1}{s^2(s^2+2)}$$</div></div>
+<div class="step"><div class="n">4</div><div class="body"><b class="t">Identidad salvavidas</b> (memorízala):
+$$\frac{1}{s^2(s^2+\omega^2)} = \frac{1}{\omega^2}\Big[\frac{1}{s^2}-\frac{1}{s^2+\omega^2}\Big]$$
+Separando y aplicándola con $\omega^2=2$: $\;X(s) = -\frac32\cdot\frac{1}{s^2+2} - \frac12\cdot\frac{1}{s^2}$.</div></div>
+<div class="step"><div class="n">5</div><div class="body"><b class="t">Inversa</b> ajustando el $\omega$: $\frac{1}{s^2+2} = \frac{1}{\sqrt2}\cdot\frac{\sqrt2}{s^2+2} \to \frac{1}{\sqrt2}\sin\sqrt2 t$.</div></div>
+<div class="answer">$x(t) = -\frac{3}{2\sqrt2}\sin(\sqrt2\,t) - \frac t2, \qquad y(t) = +\frac{3}{2\sqrt2}\sin(\sqrt2\,t) - \frac t2$</div>
+
+<!-- QUIZ SISTEMAS -->
+<div class="quizzone">
+<b class="qt">🎮 Quiz — Sistemas con Laplace</b>
+<div class="sub">El procedimiento más rentable del examen.</div>
+
+<div class="quiz" data-a="1">
+<p class="q">1. $\mathcal{L}\{x''\}$ con $x(0)=1$, $x'(0)=-2$ es…</p>
+<button class="opt">$s^2X - s + 2s$</button>
+<button class="opt">$s^2X - s + 2$</button>
+<button class="opt">$s^2X - 1 + 2$</button>
+<div class="expl">$\mathcal{L}\{x''\} = s^2X - s\,x(0) - x'(0) = s^2X - s(1) - (-2) = s^2X - s + 2$. El $x(0)$ va multiplicado por $s$; el $x'(0)$ va solo.</div>
+</div>
+
+<div class="quiz" data-a="2">
+<p class="q">2. Transformas y te sale $X(s) = \dfrac{s+1}{s^2+4}$. Entonces $x(t) =$…</p>
+<button class="opt">$\cos 2t + \sin 2t$</button>
+<button class="opt">$e^{-t}\cos 2t$</button>
+<button class="opt">$\cos 2t + \tfrac12\sin 2t$</button>
+<div class="expl">Separa: $\frac{s}{s^2+4} \to \cos 2t$. Y $\frac{1}{s^2+4}$ necesita el $\omega=2$ ARRIBA: $\frac12\cdot\frac{2}{s^2+4} \to \frac12\sin 2t$. Ese $\frac12$ olvidado cuesta un punto (salió tal cual en 2024-1).</div>
+</div>
+
+<div class="quiz" data-a="0">
+<p class="q">3. En Cramer, el determinante $\Delta = (s^2+1)^2 - 1$ factoriza como…</p>
+<button class="opt">$s^2(s^2+2)$</button>
+<button class="opt">$(s^2+1)(s^2-1)$</button>
+<button class="opt">no factoriza</button>
+<div class="expl">Diferencia de cuadrados: $a^2 - 1 = (a-1)(a+1)$ con $a = s^2+1$: da $s^2(s^2+2)$. Si tu $\Delta$ no factoriza limpio, revisa signos: te equivocaste al ordenar.</div>
+</div>
+
+<div class="quiz" data-a="1">
+<p class="q">4. Ves $X(s) = \dfrac{4}{s-2} - \dfrac{1}{s+5}$. Entonces $x(t)=$…</p>
+<button class="opt">$4e^{-2t} - e^{5t}$</button>
+<button class="opt">$4e^{2t} - e^{-5t}$</button>
+<button class="opt">$4\cos 2t - \sin 5t$</button>
+<div class="expl">$\frac{1}{s-a} \to e^{at}$ con el signo TAL CUAL está en el denominador: $(s-2) \to e^{+2t}$, $(s+5) = (s-(-5)) \to e^{-5t}$.</div>
+</div>
+</div>
+</section>
+
+<!-- ============ 5 ============ -->
+<section id="s5">
+<h2><span class="tag">P3</span>Laplace puro (8 pts — aquí se aprueba)</h2>
+
+<h3>5.1 · Tipo A: PVI con Laplace</h3>
+<h4>Ejemplo regalado (2024-1, P3a)</h4>
+<div class="enun">$y' + 2y = 4e^{2t}$, $y(0)=1$.</div>
+$$sY - 1 + 2Y = \frac{4}{s-2} \Rightarrow (s+2)Y = \frac{4+s-2}{s-2} = \frac{s+2}{s-2} \Rightarrow Y = \frac{1}{s-2}$$
+<div class="answer">$y(t) = e^{2t}$. Se canceló todo — a veces regalan una así, no desconfíes.</div>
+
+<h4>Solucionario completo con escalón (2023-2 v2, P3)</h4>
+<div class="enun">$y'' - y' - 6y = \mathcal{U}(t-2)$, $y(0)=1$, $y'(0)=-1$.</div>
+<div class="step"><div class="n">1</div><div class="body"><b class="t">Transformar</b> ($\mathcal{L}\{\mathcal{U}(t-2)\} = \frac{e^{-2s}}{s}$):
+$$s^2Y - s + 1 - (sY - 1) - 6Y = \frac{e^{-2s}}{s}$$</div></div>
+<div class="step"><div class="n">2</div><div class="body"><b class="t">Despejar</b> (factoriza $s^2-s-6 = (s-3)(s+2)$):
+$$Y = \frac{e^{-2s}}{s(s-3)(s+2)} + \frac{s-2}{(s-3)(s+2)}$$</div></div>
+<div class="step"><div class="n">3</div><div class="body"><b class="t">Fracciones parciales de cada pedazo.</b>
+$\frac{1}{s(s-3)(s+2)}$: evaluando en $s=0,3,-2$ → $-\frac16,\; \frac1{15},\; \frac1{10}$.
+$\frac{s-2}{(s-3)(s+2)}$: → $\frac{1/5}{s-3} + \frac{4/5}{s+2}$.</div></div>
+<div class="step"><div class="n">4</div><div class="body"><b class="t">Inversa.</b> El pedazo sin $e^{-2s}$: directo. El pedazo con $e^{-2s}$: inversa normal y luego <b>$t \to t-2$, todo por $\mathcal{U}(t-2)$</b>.</div></div>
+<div class="answer">$y = \tfrac15 e^{3t} + \tfrac45 e^{-2t} + \mathcal{U}(t-2)\big[-\tfrac16 + \tfrac1{15}e^{3(t-2)} + \tfrac1{10}e^{-2(t-2)}\big]$</div>
+
+<h3>5.2 · Tipo B: función por tramos → $\mathcal{L}\{f\}$ (cae SIEMPRE)</h3>
+<div class="fig">
+<svg viewBox="0 0 640 220" xmlns="http://www.w3.org/2000/svg">
+  <!-- ejes -->
+  <line x1="60" y1="180" x2="600" y2="180" stroke="#5c6579" stroke-width="1.5"/>
+  <line x1="60" y1="30" x2="60" y2="200" stroke="#5c6579" stroke-width="1.5"/>
+  <text x="606" y="184" class="svglbl" fill="#5c6579" font-size="12">t</text>
+  <text x="52" y="26" text-anchor="end" class="svglbl" fill="#5c6579" font-size="12">f(t)</text>
+  <!-- g(t) hasta a -->
+  <path d="M60,150 C120,120 190,80 250,70" fill="none" stroke="#2f5cff" stroke-width="3"/>
+  <text x="150" y="88" class="svglbl" fill="#2f5cff">g(t)</text>
+  <!-- corte -->
+  <line x1="250" y1="180" x2="250" y2="45" stroke="#b45309" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="250" y="200" text-anchor="middle" class="svglbl" fill="#b45309">t = a</text>
+  <circle cx="250" cy="70" r="5" fill="#fff" stroke="#2f5cff" stroke-width="2.5"/>
+  <!-- h(t) despues -->
+  <path d="M250,130 C330,110 430,140 590,120" fill="none" stroke="#0d9463" stroke-width="3"/>
+  <circle cx="250" cy="130" r="5" fill="#0d9463"/>
+  <text x="430" y="110" class="svglbl" fill="#0d9463">h(t)</text>
+  <text x="330" y="45" class="svglbl" fill="#1b2337">f(t) = g(t) + [h(t) − g(t)]·𝒰(t−a)</text>
+</svg>
+<div class="cap">Antes de $a$ el escalón vale 0 y queda $g$; después vale 1, el $g$ se cancela y queda $h$.</div>
+</div>
+<div class="idea"><b class="h">Fórmulas mágicas de tramos</b>
+Dos tramos: $\;f = g + (h-g)\,\mathcal{U}(t-a)$.
+Tres tramos ($g$, $h$, $p$ con cortes en $a$, $b$): $\;f = g + (h-g)\,\mathcal{U}(t-a) + (p-h)\,\mathcal{U}(t-b)$.
+Luego cada término se transforma con $\mathcal{L}\{\varphi(t)\mathcal{U}(t-a)\} = e^{-as}\mathcal{L}\{\varphi(t+a)\}$: <b>sustituye $t\to t+a$ dentro, expande, tabla</b>.</div>
+
+<h4>Solucionario: gráfica triangular (2024-1, P3b)</h4>
+<div class="enun">Recta de $(0,0)$ a $(1,1)$, luego cero: $f = t$ en $[0,1)$, $0$ después.</div>
+<div class="step"><div class="n">1</div><div class="body">Escalón: $f = t + (0 - t)\mathcal{U}(t-1) = t - t\,\mathcal{U}(t-1)$.</div></div>
+<div class="step"><div class="n">2</div><div class="body">Transformo el segundo con $t \to t+1$:
+$$\mathcal{L}\{t\,\mathcal{U}(t-1)\} = e^{-s}\mathcal{L}\{t+1\} = e^{-s}\Big[\frac{1}{s^2}+\frac{1}{s}\Big]$$</div></div>
+<div class="answer">$F(s) = \dfrac{1}{s^2} - \dfrac{e^{-s}}{s^2} - \dfrac{e^{-s}}{s}$</div>
+
+<h4>Solucionario: exponencial cortada (2025-1, P3b)</h4>
+<div class="enun">$E(t) = 4e^t$ en $[0,2)$, luego 0.</div>
+$$E = 4e^t - 4e^t\,\mathcal{U}(t-2) \qquad \mathcal{L}\{4e^t\mathcal{U}(t-2)\} = e^{-2s}\mathcal{L}\{4e^{t+2}\} = e^{-2s}\cdot 4e^2\cdot\frac{1}{s-1}$$
+<div class="answer">$F(s) = \dfrac{4}{s-1} - \dfrac{4e^{-2s+2}}{s-1}$ <span class="why">(truco: $e^{t+2} = e^2 e^t$; la constante $e^2$ sale de la transformada)</span></div>
+
+<h3>5.3 · Tipo C: transformada inversa con completar cuadrado</h3>
+<h4>Solucionario (2024-1, P3c) — el más técnico</h4>
+<div class="enun">$\mathcal{L}^{-1}$ de $F(s) = \dfrac{5(s+1)}{(s+3)(s^2+4s+13)}$.</div>
+<div class="step"><div class="n">1</div><div class="body"><b class="t">¿Factoriza $s^2+4s+13$?</b> Discriminante $16-52&lt;0$ → NO → plantilla con $(Bs+C)$:
+$$\frac{5(s+1)}{(s+3)(s^2+4s+13)} = \frac{A}{s+3} + \frac{Bs+C}{s^2+4s+13}$$</div></div>
+<div class="step"><div class="n">2</div><div class="body"><b class="t">Constantes:</b> con $s=-3$: $A=-1$; coef. de $s^2$: $B=1$; con $s=0$: $C=6$.</div></div>
+<div class="step"><div class="n">3</div><div class="body"><b class="t">Completa el cuadrado</b> (mitad de 4 → 2, al cuadrado → 4):
+$$s^2+4s+13 = (s+2)^2 + 9$$
+y reescribe el numerador <b>en términos de $(s+2)$</b>: $\;s+6 = (s+2)+4$.</div></div>
+<div class="step"><div class="n">4</div><div class="body"><b class="t">Inversa con traslación</b> (todo $s+2$ → factor $e^{-2t}$):
+$$\frac{s+2}{(s+2)^2+9} \to e^{-2t}\cos 3t \qquad \frac{4}{(s+2)^2+9} = \frac43\cdot\frac{3}{(s+2)^2+9} \to \frac43 e^{-2t}\sin 3t$$</div></div>
+<div class="answer">$f(t) = -e^{-3t} + e^{-2t}\cos 3t + \frac43 e^{-2t}\sin 3t$</div>
+
+<div class="warn"><b class="h">⚠️ El caso resonancia en Laplace: $(s^2+\omega^2)^2$ (cayó 2024-1 y 2023-2)</b>
+$$\mathcal{L}^{-1}\Big\{\frac{1}{(s^2+\omega^2)^2}\Big\} = \frac{1}{2\omega^3}\big[\sin\omega t - \omega t\cos\omega t\big]$$
+Ejemplo real: $\mathcal{L}^{-1}\{\frac{60}{(s^2+36)^2}\}$ con $\omega=6$: $\frac{60}{432}[\sin 6t - 6t\cos 6t] = \frac{5}{36}(\sin 6t - 6t\cos 6t)$.
+<span class="why">Sale de $\mathcal{L}\{t\cos\omega t\} = -\frac{d}{ds}\big[\frac{s}{s^2+\omega^2}\big] = \frac{s^2-\omega^2}{(s^2+\omega^2)^2}$, sumando y restando $\omega^2$ arriba. En 2023-2 lo pidieron como demostración guiada.</span></div>
+
+<!-- QUIZ LAPLACE -->
+<div class="quizzone">
+<b class="qt">🎮 Quiz — Laplace</b>
+<div class="sub">Los 8 puntos del examen viven aquí.</div>
+
+<div class="quiz" data-a="2">
+<p class="q">1. $f(t) = t^2$ en $[0,3)$ y $\cos t$ en $[3,\infty)$. Con escalón unitario:</p>
+<button class="opt">$f = t^2 + \cos t\,\mathcal{U}(t-3)$</button>
+<button class="opt">$f = t^2\,\mathcal{U}(t-3) + \cos t$</button>
+<button class="opt">$f = t^2 + (\cos t - t^2)\,\mathcal{U}(t-3)$</button>
+<div class="expl">Fórmula: $f = g + (h-g)\,\mathcal{U}(t-a)$. El término $(h-g)$ cancela a $g$ cuando el escalón se enciende. Sin el $-t^2$, después de $t=3$ tendrías $t^2 + \cos t$ (mal).</div>
+</div>
+
+<div class="quiz" data-a="0">
+<p class="q">2. Para calcular $\mathcal{L}\{t\,\mathcal{U}(t-1)\}$, el paso correcto es…</p>
+<button class="opt">$e^{-s}\,\mathcal{L}\{t+1\}$</button>
+<button class="opt">$e^{-s}\,\mathcal{L}\{t\}$</button>
+<button class="opt">$e^{-s}\,\mathcal{L}\{t-1\}$</button>
+<div class="expl">$\mathcal{L}\{f(t)\mathcal{U}(t-a)\} = e^{-as}\mathcal{L}\{f(t+a)\}$: sustituyes $t \to t+1$ DENTRO. Usar $\mathcal{L}\{t\}$ sin sustituir es el error más común del examen.</div>
+</div>
+
+<div class="quiz" data-a="1">
+<p class="q">3. $s^2 + 6s + 13$ completando el cuadrado es…</p>
+<button class="opt">$(s+6)^2 - 23$</button>
+<button class="opt">$(s+3)^2 + 4$</button>
+<button class="opt">$(s+3)^2 + 13$</button>
+<div class="expl">Mitad de 6 es 3; $(s+3)^2 = s^2+6s+9$, y para llegar a 13 sobran $+4$. La inversa llevará $e^{-3t}$ con frecuencia $2$ (porque $4 = 2^2$).</div>
+</div>
+
+<div class="quiz" data-a="2">
+<p class="q">4. $\mathcal{L}^{-1}\Big\{\dfrac{e^{-3s}}{s-2}\Big\} =$ …</p>
+<button class="opt">$e^{2t} - 3$</button>
+<button class="opt">$e^{2t}\,\mathcal{U}(t-3)$</button>
+<button class="opt">$e^{2(t-3)}\,\mathcal{U}(t-3)$</button>
+<div class="expl">El $e^{-3s}$ significa "retardo de 3": inversa normal ($e^{2t}$), luego reemplaza $t \to t-3$ EN TODO y multiplica por $\mathcal{U}(t-3)$.</div>
+</div>
+
+<div class="quiz" data-a="0">
+<p class="q">5. En fracciones parciales, el factor $s^2+9$ (irreducible) aporta…</p>
+<button class="opt">$\dfrac{As+B}{s^2+9}$</button>
+<button class="opt">$\dfrac{A}{s^2+9}$</button>
+<button class="opt">$\dfrac{A}{s-3}+\dfrac{B}{s+3}$</button>
+<div class="expl">Cuadrática irreducible → numerador de grado 1: $As+B$. (Y ojo: $s^2+9$ NO factoriza en reales; $s^2-9$ sí.) Del $As$ saldrá un coseno y del $B$ un seno.</div>
+</div>
+</div>
+</section>
+
+<!-- ============ 6 ============ -->
+<section id="s6">
+<h2><span class="tag">+3</span>Autovalores (Adicional)</h2>
+
+<h3>6.1 · Receta con el ejemplo real (2025-1)</h3>
+<div class="enun">$x_1' = 2x_1 + x_2$, $\;x_2' = -x_2$, con $x_1(0)=3$, $x_2(0)=4$.</div>
+<div class="step"><div class="n">1</div><div class="body"><b class="t">Matriz:</b> $A = \begin{pmatrix} 2 & 1 \\ 0 & -1 \end{pmatrix}$ (coeficientes tal cual).</div></div>
+<div class="step"><div class="n">2</div><div class="body"><b class="t">Autovalores:</b> $\det(A-\lambda I) = 0$:
+$$(2-\lambda)(-1-\lambda) - 0 = \lambda^2-\lambda-2 = (\lambda-2)(\lambda+1) = 0 \Rightarrow \lambda_1=2,\; \lambda_2=-1$$
+<span class="why">Resta $\lambda$ SOLO en la diagonal, y calcula el determinante 2×2: (diagonal principal) − (antidiagonal).</span></div></div>
+<div class="step"><div class="n">3</div><div class="body"><b class="t">Autovector de cada $\lambda$:</b> resuelve $(A-\lambda I)v = 0$.
+Para $\lambda_1=2$: $\begin{pmatrix} 0&1\\0&-3 \end{pmatrix}v=0 \Rightarrow k_2 = 0 \Rightarrow v_1 = \binom{1}{0}$.
+Para $\lambda_2=-1$: $3k_1 + k_2 = 0 \Rightarrow v_2 = \binom{-1}{3}$.</div></div>
+<div class="step"><div class="n">4</div><div class="body"><b class="t">Solución general:</b> cada pareja $(\lambda, v)$ da un modo $v\,e^{\lambda t}$:
+$$X(t) = C_1\binom{1}{0}e^{2t} + C_2\binom{-1}{3}e^{-t}$$</div></div>
+<div class="step"><div class="n">5</div><div class="body"><b class="t">CI en $t=0$:</b> fila 2: $3C_2 = 4 \Rightarrow C_2 = \tfrac43$; fila 1: $C_1 = 3 + \tfrac43 = \tfrac{13}{3}$.</div></div>
+<div class="tip"><b class="h">No entres en pánico por el vector</b>Cualquier múltiplo de un autovector sirve (lo dice el solucionario oficial). Si el tuyo se ve distinto, verifica $(A-\lambda I)v = 0$ y sigue.</div>
+
+<h3>6.2 · Conceptos con respuesta lista</h3>
+<div class="key"><b class="h">Definición + calcular por definición</b>
+$$\mathcal{L}\{f\} = \int_0^\infty e^{-st}f(t)\,dt \qquad \mathcal{L}\{2\} = \Big[\tfrac{-2}{s}e^{-st}\Big]_0^\infty = \tfrac{2}{s}$$</div>
+<div class="key"><b class="h">Demostrar $\mathcal{L}\{e^{at}f\} = F(s-a)$ (2 líneas)</b>
+$$\int_0^\infty e^{-st}e^{at}f\,dt = \int_0^\infty e^{-(s-a)t}f\,dt = F(s-a)$$</div>
+<div class="key"><b class="h">"¿Sistema de 2.º orden con autovalores?"</b>
+Sí: define $x_1=x, x_2=y, x_3=x', x_4=y'$ → sistema de primer orden con matriz <b>4×4</b>. Esa es la respuesta esperada.</div>
+<div class="key"><b class="h">$\mathcal{L}\{t f(t)\} = -F'(s)$</b>
+Ej. 2025-1: $\mathcal{L}\{te^t(\sin t + \cos t)\}$. Primero $\mathcal{L}\{e^t\sin t\} + \mathcal{L}\{e^t\cos t\} = \frac{s}{(s-1)^2+1}$ (traslación), luego derivar en $s$ y cambiar signo: $\frac{s^2-2}{[(s-1)^2+1]^2}$.</div>
+
+<!-- QUIZ AUTOVALORES -->
+<div class="quizzone">
+<b class="qt">🎮 Quiz — Autovalores</b>
+<div class="sub">Directo al grano: 3 preguntas.</div>
+
+<div class="quiz" data-a="1">
+<p class="q">1. Los autovalores de $A = \begin{pmatrix} 4 & 1 \\ -2 & 1 \end{pmatrix}$ salen de…</p>
+<button class="opt">$(4-\lambda)(1-\lambda) + 2\lambda = 0$</button>
+<button class="opt">$(4-\lambda)(1-\lambda) - (1)(-2) = 0$</button>
+<button class="opt">$(4)(1) - \lambda^2 = 0$</button>
+<div class="expl">$\det(A-\lambda I)$: restas $\lambda$ solo en la diagonal y haces (diagonal) − (antidiagonal): $(4-\lambda)(1-\lambda) - (1)(-2) = \lambda^2 - 5\lambda + 6 = 0 \Rightarrow \lambda = 2, 3$ (cayó en 2024-1 con conejos y zorros 🐰🦊).</div>
+</div>
+
+<div class="quiz" data-a="0">
+<p class="q">2. Si $\lambda = 2$ con $v = \binom{1}{-2}$, ese modo aporta a la solución…</p>
+<button class="opt">$C\binom{1}{-2}e^{2t}$</button>
+<button class="opt">$C\binom{1}{-2}\cos 2t$</button>
+<button class="opt">$Ce^{2t} + C\binom{1}{-2}$</button>
+<div class="expl">Cada pareja (autovalor, autovector) da un bloque $v\,e^{\lambda t}$: el vector marca la dirección, el $e^{\lambda t}$ el crecimiento. La general es la suma de los bloques con constantes.</div>
+</div>
+
+<div class="quiz" data-a="2">
+<p class="q">3. Tu compañero sacó $v_1 = \binom{2}{-4}$ y tú $v_1 = \binom{1}{-2}$. ¿Quién está mal?</p>
+<button class="opt">Él</button>
+<button class="opt">Tú</button>
+<button class="opt">Nadie: son el mismo autovector</button>
+<div class="expl">$\binom{2}{-4} = 2\binom{1}{-2}$: cualquier múltiplo (no nulo) de un autovector es autovector. La constante $C$ absorbe la diferencia.</div>
+</div>
+</div>
+</section>
+
+<!-- ============ 7 ============ -->
+<section id="s7">
+<h2><span class="tag">🏆</span>Plan de batalla</h2>
+<h3>Orden de ataque (100 min)</h3>
+<div class="step"><div class="n">1</div><div class="body"><b>P2a — modelar circuito/matriz</b> (3 pts mecánicos, ~10 min).</div></div>
+<div class="step"><div class="n">2</div><div class="body"><b>P3 completo</b> (8 pts; fracciones parciales con calma).</div></div>
+<div class="step"><div class="n">3</div><div class="body"><b>P2b — sistema con Laplace</b> (3 pts, receta fija).</div></div>
+<div class="step"><div class="n">4</div><div class="body"><b>P1</b> — modelado rápido, luego la EDO larga.</div></div>
+<div class="step"><div class="n">5</div><div class="body"><b>Adicional</b> solo si sobra tiempo (23 pts, máx. 20).</div></div>
+
+<h3>Checklist de errores que matan</h3>
+<ul class="check">
+<li>CI: <b>ascendente = negativo</b>, descendente = positivo (eje + hacia abajo).</li>
+<li>$\mathcal{L}\{x''\} = s^2X - s\,x(0) - x'(0)$: lleva LOS DOS términos de CI.</li>
+<li>$\sin$: el $\omega$ va <b>arriba</b>; si no está, multiplica y divide por $\omega$.</li>
+<li>Resonancia: si $x_p$ ya está en $x_h$ → multiplica por $t$.</li>
+<li>Escalón ida: $t\to t+a$ ANTES de transformar. Vuelta: $t\to t-a$ y $\times\,\mathcal{U}(t-a)$.</li>
+<li>Completar cuadrado: reescribe también el <b>numerador</b> en $(s+a)$.</li>
+<li>Condensador entra como $1/C$, no como $C$.</li>
+<li>Rama compartida de mallas: $(I_1 - I_2)$.</li>
+<li>Verifica $x(0)$ sustituyendo $t=0$ en tu respuesta final: 20 segundos, detecta casi todo.</li>
+</ul>
+
+<h3>Identidades salvavidas</h3>
+<div class="key">
+$$\frac{1}{s^2(s^2+\omega^2)} = \frac{1}{\omega^2}\Big[\frac{1}{s^2}-\frac{1}{s^2+\omega^2}\Big] \qquad \mathcal{L}^{-1}\Big\{\frac{1}{(s^2+\omega^2)^2}\Big\} = \frac{\sin\omega t - \omega t\cos\omega t}{2\omega^3}$$
+$$(s^2+1)^2-1 = s^2(s^2+2) \qquad \sin 2t = 2\sin t\cos t \qquad \cos(2t+8) = \cos 2t\cos 8 - \sin 2t\sin 8$$</div>
+
+<p><span class="pill">P2b + P3 ≈ 14 de 20 pts</span><span class="pill">Verifica t = 0 siempre</span><span class="pill">Puedes soltar 3 pts</span></p>
+</section>
+
+<footer>Hecho para Aarón · basado en los finales reales 2023-2 / 2024-1 / 2025-1 (UTEC) · ¡Éxitos! 💪</footer>
 </div>
 
 <script>
-/* ======================= DATOS DE LOS EXÁMENES ======================= */
-const EXAMENES = [
-{
-  n:1, subtitulo:"Simulacro Integral · A",
-  temas:"Patrones · Pilas y Colas · BST · DFS/BFS · Dijkstra/Kruskal",
-  preguntas:[
-    { tipo:"mcq", num:1, pts:1, tema:"POO / Patrones",
-      enunciado:"Analice el código y determine qué se imprime exactamente en la consola.",
-      codigo:`#include <iostream>
-using namespace std;
-class Informe { public: virtual void generar()=0; };
-class Base : public Informe {
-public: void generar() override { cout << "Base"; }
-};
-class Deco : public Informe {
-protected: Informe* in;
-public: Deco(Informe* i):in(i){}
-    void generar() override { cout << "["; in->generar(); cout << "]"; }
-};
-int main(){
-    Informe* r = new Deco(new Deco(new Base()));
-    r->generar();
-}`,
-      opciones:["Base","[Base]","[[Base]]","[[[Base]]]","Error de compilación"],
-      correcta:2,
-      explicacion:"El decorador externo imprime '[', delega en el interno que imprime '[', el Base imprime 'Base', y luego se cierran los corchetes: [[Base]]. Es el patrón Decorator: cada capa envuelve y añade comportamiento manteniendo la misma interfaz." },
-
-    { tipo:"mcq", num:2, pts:1, tema:"Pilas y Colas",
-      enunciado:"Sobre una PILA vacía se ejecuta la secuencia. ¿Qué valor devuelve el último top()?",
-      codigo:`p.push(1); p.push(2); p.push(3);
-p.pop();
-p.push(4);
-p.pop();
-p.pop();
-// cout << p.top();`,
-      opciones:["1","2","3","4","La pila queda vacía (error)"],
-      correcta:0,
-      explicacion:"LIFO. Estado: [1,2,3] → pop saca 3 → [1,2] → push 4 → [1,2,4] → pop saca 4 → [1,2] → pop saca 2 → [1]. top() = 1." },
-
-    { tipo:"mcq", num:3, pts:1, tema:"Árboles (BST)",
-      enunciado:"En un BST vacío se insertan en orden: 50, 30, 70, 20, 40, 60, 80. ¿Cuál es su recorrido en PostOrden?",
-      opciones:["20 30 40 50 60 70 80","50 30 20 40 70 60 80","20 40 30 60 80 70 50","20 40 60 80 30 70 50","80 70 60 50 40 30 20"],
-      correcta:2,
-      explicacion:"PostOrden = izquierda, derecha, raíz. Subárbol izq (raíz 30): 20,40,30. Subárbol der (raíz 70): 60,80,70. Raíz 50 al final → 20 40 30 60 80 70 50. (La opción (a) es el InOrden ascendente; la (b) es el PreOrden.)" },
-
-    { tipo:"mcq", num:4, pts:1, tema:"Grafos (BFS)",
-      enunciado:"Respecto al algoritmo BFS (Breadth-First Search), ¿qué estructura auxiliar usa y cuál es su complejidad temporal?",
-      opciones:["Una pila; O(V·E)","Una cola; O(V + E)","Una cola de prioridad; O((V+E)·log V)","Una pila; O(V²)","Un árbol binario; O(log V)"],
-      correcta:1,
-      explicacion:"BFS explora por niveles usando una cola (FIFO). Visita cada vértice y cada arista una vez → O(V + E). (DFS usa pila; Dijkstra usa cola de prioridad.)" },
-
-    { tipo:"dev", num:5, pts:4, tema:"Grafos (Dijkstra)",
-      enunciado:"Ejecute el algoritmo de Dijkstra sobre el grafo ponderado no dirigido, con nodo origen A. (a) Escriba la tabla con la distancia mínima de A a cada nodo. (b) Explique por qué Dijkstra es un algoritmo voraz y por qué exige pesos no negativos.  Aristas: A-B(2), A-C(5), B-C(1), B-D(6), C-D(3), C-E(8), D-E(2).",
-      criterios:[
-        {desc:"Distancias correctas: A=0, B=2, C=3, D=6, E=8", kw:["a=0","b=2","c=3","d=6","e=8","0 2 3 6 8"], pts:2},
-        {desc:"Explica la estrategia voraz (elegir el no visitado de menor distancia) y por qué requiere pesos no negativos", kw:["voraz","greedy","menor distancia","no visitado","pesos no negativos","no negativos","relaj","optimo local"], pts:2}
-      ],
-      solucion:`<p>Se visita siempre el nodo no visitado con menor distancia y se relajan sus vecinos con d(vi)=min(d(v)+peso, d(vi)):</p>
-<pre>Inicio: A=0, resto=∞
-Visita A(0): B=2, C=5
-Visita B(2): C=min(5,2+1)=3, D=2+6=8
-Visita C(3): D=min(8,3+3)=6, E=3+8=11
-Visita D(6): E=min(11,6+2)=8
-Visita E(8): fin</pre>
-<p><b>Tabla final:</b> A=0, B=2, C=3, D=6, E=8.</p>
-<p><b>Voraz:</b> en cada paso toma la decisión localmente óptima (el nodo más cercano aún no visitado), confiando en llegar al óptimo global. <b>Pesos no negativos:</b> con pesos negativos un nodo ya fijado como definitivo podría mejorarse después, invalidando la decisión voraz.</p>` },
-
-    { tipo:"dev", num:6, pts:6, tema:"Correctitud",
-      enunciado:"Considere la función recursiva que calcula el tamaño (número de nodos) de un árbol binario. Demuestre por inducción estructural que size(nodo) retorna el número correcto de nodos.",
-      codigo:`int size(Nodo* nodo){
-    if (nodo == nullptr) return 0;
-    return 1 + size(nodo->left) + size(nodo->right);
-}`,
-      criterios:[
-        {desc:"Caso base correcto: árbol vacío (nodo == nullptr) tiene 0 nodos", kw:["caso base","nullptr","vacio","0 nodos","arbol vacio"], pts:2},
-        {desc:"Hipótesis inductiva: size funciona para los subárboles izquierdo y derecho", kw:["hipotesis","inductiv","subarbol","asumimos","suponemos"], pts:2},
-        {desc:"Paso inductivo/conclusión: 1 + izq + der cuenta todos los nodos", kw:["1 +","1+","paso inductivo","raiz","cuenta todos","por lo tanto","total","conclusi"], pts:2}
-      ],
-      solucion:`<p><b>Caso base:</b> si nodo == nullptr, el subárbol está vacío y tiene 0 nodos; la función retorna 0. Correcto.</p>
-<p><b>Hipótesis inductiva:</b> supongamos que size() retorna correctamente el número de nodos para árboles más pequeños; en particular, para los subárboles izquierdo (size(nodo→left)) y derecho (size(nodo→right)).</p>
-<p><b>Paso inductivo:</b> el subárbol con raíz en 'nodo' tiene: 1 (la propia raíz) + los nodos del subárbol izquierdo + los del derecho. Por la hipótesis, size(left) y size(right) son correctos, así que 1 + size(left) + size(right) cuenta exactamente todos los nodos, sin repetir ni omitir.</p>
-<p>Por inducción estructural, size() es correcto para todo árbol binario. ∎</p>` },
-
-    { tipo:"dev", num:7, pts:6, tema:"Diseño de Algoritmos",
-      enunciado:"Diseñe un algoritmo que, usando una PILA, determine si una cadena de paréntesis, corchetes y llaves está correctamente balanceada (p. ej. '([]{})' es válida; '([)]' no lo es). Escriba el pseudocódigo detallado (4 pts) y justifique su complejidad temporal (2 pts).",
-      criterios:[
-        {desc:"Usa una pila: apila las aperturas y desapila al encontrar cierres", kw:["pila","apilar","push","desapilar","pop","stack"], pts:2},
-        {desc:"Verifica que cada cierre coincida con la apertura del tope y que la pila quede vacía al final", kw:["coincid","corresponde","tope","top","vacia al final","empareja","mismo tipo","emparej"], pts:2},
-        {desc:"Justifica complejidad O(n): se recorre la cadena una sola vez", kw:["o(n)","lineal","una vez","recorre","cada caracter","n caracteres"], pts:2}
-      ],
-      solucion:`<pre>balanceada(s):
-  pila = pila vacía
-  para cada carácter c en s:
-     si c es apertura  '(' '[' '{' :
-        pila.push(c)
-     si c es cierre  ')' ']' '}' :
-        si pila está vacía: retornar FALSO
-        ap = pila.pop()
-        si ap NO corresponde a c: retornar FALSO
-  retornar (pila está vacía)</pre>
-<p><b>Complejidad O(n):</b> se recorre la cadena de longitud n una sola vez; cada carácter genera a lo sumo un push y un pop, ambos O(1). Total: O(n) en tiempo y O(n) en espacio en el peor caso.</p>` }
-  ]
-},
-{
-  n:2, subtitulo:"Simulacro Integral · B",
-  temas:"Patrones · Pilas y Colas · BST · DFS/BFS · Dijkstra/Kruskal",
-  preguntas:[
-    { tipo:"mcq", num:1, pts:1, tema:"POO / Patrones",
-      enunciado:"Un patrón de diseño define una dependencia uno-a-muchos entre objetos, de modo que cuando un objeto (sujeto) cambia de estado, todos sus dependientes son notificados automáticamente. ¿Qué patrón es?",
-      opciones:["Singleton","Observer","Adapter","Memento","Builder"],
-      correcta:1,
-      explicacion:"Es la definición exacta del patrón Observer (categoría Comportamiento): el sujeto mantiene una lista de observadores y los notifica al cambiar su estado." },
-
-    { tipo:"mcq", num:2, pts:1, tema:"Pilas y Colas",
-      enunciado:"Sobre una COLA vacía se ejecuta la secuencia (FIFO). ¿Qué valor devuelve front() al final?",
-      codigo:`q.push(5); q.push(8);
-q.pop();
-q.push(3);
-// cout << q.front();`,
-      opciones:["5","8","3","La cola queda vacía","No se puede saber"],
-      correcta:1,
-      explicacion:"FIFO: se elimina por el frente. [5,8] → pop saca el 5 (el más antiguo) → [8] → push 3 → [8,3]. front() = 8." },
-
-    { tipo:"mcq", num:3, pts:1, tema:"Árboles (BST)",
-      enunciado:"En un BST vacío se insertan: 50, 30, 70, 20. Con la convención del curso (altura de un árbol vacío = -1), ¿cuál es la altura del árbol?",
-      opciones:["0","1","2","3","4"],
-      correcta:2,
-      explicacion:"La altura es la longitud (en aristas) del camino más largo de la raíz a una hoja. height(20)=0; height(30)=1+max(0,-1)=1; height(70)=0; height(50)=1+max(1,0)=2. El camino 50→30→20 tiene 2 aristas." },
-
-    { tipo:"mcq", num:4, pts:1, tema:"Grafos (Dijkstra)",
-      enunciado:"En el grafo ponderado no dirigido con aristas A-B(1), A-C(4), B-C(2), B-D(5), C-D(1), se ejecuta Dijkstra desde A. ¿Cuál es la distancia mínima de A a D?",
-      opciones:["6","5","4","3","7"],
-      correcta:2,
-      explicacion:"A→B=1; A→C = min(4, 1+2)=3; A→D = min(A→B→D=1+5=6, A→C→D=3+1=4)=4. La ruta óptima es A→B→C→D con costo 4." },
-
-    { tipo:"dev", num:5, pts:4, tema:"Grafos (Kruskal)",
-      enunciado:"Ejecute el algoritmo de Kruskal sobre el grafo con las aristas dadas. (a) Liste, en orden, las aristas que forman el Árbol de Expansión Mínima (MST) y el peso total. (b) Explique cómo Union-Find evita formar ciclos.  Aristas: A-B(5), A-C(7), B-C(9), B-E(15), B-F(6), C-D(8), C-E(7), D-E(5), E-F(8), E-G(9), F-G(11).",
-      criterios:[
-        {desc:"MST correcto: A-B(5), D-E(5), B-F(6), A-C(7), C-E(7), E-G(9); peso total 39", kw:["a-b","d-e","b-f","a-c","c-e","e-g","39"], pts:2},
-        {desc:"Explica Union-Find: se ordenan las aristas por peso y solo se une una arista si sus extremos están en conjuntos distintos (distinto representante)", kw:["ordena","menor a mayor","union-find","conjuntos","representante","ancestro","distinto","ciclo","mismo conjunto"], pts:2}
-      ],
-      solucion:`<p>Se ordenan las aristas por peso y se agregan si NO forman ciclo (extremos en conjuntos distintos):</p>
-<pre>A-B(5) ✓   D-E(5) ✓   B-F(6) ✓
-A-C(7) ✓   C-E(7) ✓   (une los dos grupos)
-C-D(8) ✗ ciclo   E-F(8) ✗   B-C(9) ✗
-E-G(9) ✓   → 6 aristas (V-1)</pre>
-<p><b>MST:</b> A-B(5), D-E(5), B-F(6), A-C(7), C-E(7), E-G(9). <b>Peso total = 39.</b></p>
-<p><b>Union-Find:</b> cada nodo empieza en su propio conjunto. Antes de añadir una arista (u,v) se comparan los representantes (ancestros) de u y v; si son iguales ya están conectados y la arista cerraría un ciclo, por lo que se descarta. Si son distintos, se unen los conjuntos.</p>` },
-
-    { tipo:"dev", num:6, pts:6, tema:"Correctitud",
-      enunciado:"Demuestre, usando el método inductivo, la correctitud del algoritmo BFS: pruebe que BFS visita los nodos en orden creciente de su distancia (en número de aristas) al nodo inicial.",
-      criterios:[
-        {desc:"Caso base: el nodo inicial se encola primero, con distancia 0", kw:["caso base","nodo inicial","distancia 0","trivial","se encola primero","distancia = 0"], pts:2},
-        {desc:"Hipótesis inductiva: los nodos se encolan/procesan en orden de distancia", kw:["hipotesis","inductiv","orden de distancia","asumimos","suponemos","distancia"], pts:2},
-        {desc:"Paso inductivo: los vecinos se agregan con distancia+1 y la cola FIFO preserva el orden", kw:["vecinos","cola","fifo","distancia + 1","distancia+1","preserva","se mantiene","nivel"], pts:2}
-      ],
-      solucion:`<p><b>Hipótesis:</b> si un nodo A entra a la cola antes que B, entonces dist(A) ≤ dist(B).</p>
-<p><b>Caso base:</b> se encola el nodo inicial con distancia 0; la hipótesis se cumple trivialmente (único nodo en la cola).</p>
-<p><b>Paso inductivo:</b> supongamos la propiedad cierta hasta cierto punto. Al extraer un nodo v (distancia d) del frente, sus vecinos no visitados se agregan al final de la cola con distancia d+1. Como la cola es FIFO y los nodos de distancia d se procesan antes que los de d+1, todo lo que se añade tiene distancia mayor o igual que lo ya presente. Se preserva el orden por distancia.</p>
-<p>Por inducción, BFS visita los nodos alcanzables en orden creciente de distancia; por eso encuentra el camino más corto en grafos no ponderados. ∎</p>` },
-
-    { tipo:"dev", num:7, pts:6, tema:"Diseño de Algoritmos",
-      enunciado:"Dado un grafo NO ponderado y dos nodos 'origen' y 'destino', diseñe un algoritmo que calcule la longitud del camino más corto (número de aristas) entre ellos. Escriba el pseudocódigo (4 pts) y justifique la complejidad O(V+E) (2 pts).",
-      criterios:[
-        {desc:"Usa BFS con una cola y un conjunto/arreglo de visitados", kw:["bfs","cola","queue","visitados","nivel"], pts:2},
-        {desc:"Lleva la distancia/nivel de cada nodo y retorna al alcanzar el destino", kw:["distancia","nivel","dist[","+1","+ 1","retorna","destino","cuando llega"], pts:2},
-        {desc:"Justifica O(V+E): cada vértice y arista se procesa una vez", kw:["o(v+e)","v+e","cada vertice","cada arista","una vez"], pts:2}
-      ],
-      solucion:`<pre>caminoMasCorto(origen, destino):
-  cola = cola vacía;  visitados = {}
-  cola.push(origen);  dist[origen] = 0;  visitados.add(origen)
-  mientras cola no esté vacía:
-     v = cola.pop()            // frente
-     si v == destino: retornar dist[v]
-     para cada vecino u de v:
-        si u no está en visitados:
-           visitados.add(u)
-           dist[u] = dist[v] + 1
-           cola.push(u)
-  retornar INFINITO   // no alcanzable</pre>
-<p><b>O(V+E):</b> cada vértice entra y sale de la cola una sola vez (se marca visitado), y por cada vértice se revisan sus aristas incidentes exactamente una vez. Sumando: O(V + E).</p>` }
-  ]
-},
-{
-  n:3, subtitulo:"Simulacro Integral · C",
-  temas:"Patrones · Pilas y Colas · BST · DFS/BFS · Dijkstra/Kruskal",
-  preguntas:[
-    { tipo:"mcq", num:1, pts:1, tema:"POO / Patrones",
-      enunciado:"Analice el código y determine qué se imprime exactamente en la consola.",
-      codigo:`#include <iostream>
-using namespace std;
-class S {
-    static S* inst;
-    static int cont;
-    int id;
-    S(){ id = ++cont; }
-public:
-    static S* get(){ if(!inst) inst = new S(); return inst; }
-    int getId(){ return id; }
-};
-S* S::inst = nullptr;
-int S::cont = 0;
-int main(){
-    cout << S::get()->getId();
-    cout << S::get()->getId();
-}`,
-      opciones:["11","12","00","01","Error: constructor privado"],
-      correcta:0,
-      explicacion:"Patrón Singleton: el constructor privado solo se ejecuta la primera vez (cont pasa a 1, id=1). La segunda llamada a get() devuelve la MISMA instancia, así que ambos getId() imprimen 1 → '11'." },
-
-    { tipo:"mcq", num:2, pts:1, tema:"Pilas y Colas",
-      enunciado:"Se apilan los caracteres de 'ABC' (primero A, luego B, luego C) en una pila y luego se desapilan todos, imprimiéndolos. ¿Qué se imprime?",
-      opciones:["ABC","CBA","ACB","BAC","BCA"],
-      correcta:1,
-      explicacion:"Una pila es LIFO: el último en entrar (C) sale primero. Desapilando: C, B, A → 'CBA'. Por eso las pilas sirven para invertir secuencias." },
-
-    { tipo:"mcq", num:3, pts:1, tema:"Árboles (BST)",
-      enunciado:"¿Cuál afirmación sobre los recorridos de un Árbol Binario de Búsqueda (BST) es CORRECTA?",
-      opciones:[
-        "El recorrido PreOrden visita los nodos en orden ascendente.",
-        "El recorrido InOrden visita los nodos en orden ascendente de sus valores.",
-        "El recorrido PostOrden visita los nodos en orden ascendente.",
-        "El recorrido InOrden se usa principalmente para liberar la memoria del árbol.",
-        "Ningún recorrido produce los valores ordenados."],
-      correcta:1,
-      explicacion:"En un BST, InOrden (izquierda–nodo–derecha) produce los valores en orden ascendente. PostOrden se usa para liberar memoria (borra hijos antes que el padre); PreOrden para copiar/reconstruir." },
-
-    { tipo:"mcq", num:4, pts:1, tema:"Grafos (Kruskal)",
-      enunciado:"Se aplica Kruskal a un grafo con aristas (ordenadas por peso): A-B(5), D-E(5), B-F(6), A-C(7), C-E(7), C-D(8), E-F(8), B-C(9), E-G(9). Procesándolas en orden, ¿cuál es la PRIMERA arista que se RECHAZA por formar un ciclo?",
-      opciones:["A-C (7)","C-E (7)","C-D (8)","E-F (8)","E-G (9)"],
-      correcta:2,
-      explicacion:"Tras añadir A-B, D-E, B-F, A-C y C-E, los nodos {A,B,C,D,E,F} quedan en un mismo conjunto (C-E unió ambos grupos). Al evaluar C-D(8), C y D ya tienen el mismo representante → formaría ciclo → se rechaza." },
-
-    { tipo:"dev", num:5, pts:4, tema:"Grafos (Dijkstra)",
-      enunciado:"Ejecute Dijkstra sobre el grafo ponderado con origen S. (a) Dé la distancia mínima de S a cada nodo. (b) Justifique por qué la complejidad de Dijkstra con cola de prioridad es O((V+E)·log V).  Aristas: S-A(1), S-B(4), A-B(2), A-C(5), B-C(1), C-D(3).",
-      criterios:[
-        {desc:"Distancias correctas: S=0, A=1, B=3, C=4, D=7", kw:["s=0","a=1","b=3","c=4","d=7","0 1 3 4 7"], pts:2},
-        {desc:"Justifica O((V+E)·log V): cada arista puede generar una inserción en la cola de prioridad y cada operación cuesta log V", kw:["(v+e)","log v","cola de prioridad","insercion","operacion","log","cada arista","extrae"], pts:2}
-      ],
-      solucion:`<pre>Inicio: S=0, resto=∞
-Visita S(0): A=1, B=4
-Visita A(1): B=min(4,1+2)=3, C=1+5=6
-Visita B(3): C=min(6,3+1)=4
-Visita C(4): D=4+3=7
-Visita D(7): fin</pre>
-<p><b>Distancias:</b> S=0, A=1, B=3, C=4, D=7.</p>
-<p><b>O((V+E)·log V):</b> cada vértice se extrae de la cola de prioridad una vez y cada arista puede provocar una inserción; cada inserción/extracción cuesta O(log V) por el tamaño de la cola. Sumando sobre V vértices y E aristas: O((V+E)·log V).</p>` },
-
-    { tipo:"dev", num:6, pts:6, tema:"Correctitud (BST)",
-      enunciado:"Demuestre por inducción sobre la estructura del árbol que el recorrido InOrden de un Árbol Binario de Búsqueda (BST) visita los nodos en orden ascendente de sus valores.",
-      codigo:`inorden(nodo):
-    si nodo == null: retornar
-    inorden(nodo.left)
-    visitar(nodo.dato)
-    inorden(nodo.right)`,
-      criterios:[
-        {desc:"Caso base: un árbol vacío (o una sola hoja) produce una secuencia trivialmente ordenada", kw:["caso base","vacio","hoja","trivial","un nodo","una hoja"], pts:2},
-        {desc:"Hipótesis inductiva: InOrden de los subárboles izquierdo y derecho ya produce secuencias ordenadas", kw:["hipotesis","inductiv","subarbol","asumimos","suponemos","ordenad"], pts:2},
-        {desc:"Paso: por la propiedad del BST, izquierda < raíz < derecha, así que [izq ordenado] + raíz + [der ordenado] queda globalmente ordenado", kw:["propiedad","izquierda","derecha","raiz","concatena","menor","mayor","ascendente","globalmente"], pts:2}
-      ],
-      solucion:`<p><b>Caso base:</b> un árbol vacío produce la secuencia vacía (ordenada) y un árbol de un solo nodo produce un único valor (trivialmente ordenado).</p>
-<p><b>Hipótesis inductiva:</b> supongamos que InOrden aplicado a los subárboles izquierdo y derecho (de menor tamaño) produce secuencias en orden ascendente.</p>
-<p><b>Paso inductivo:</b> InOrden visita primero todo el subárbol izquierdo, luego la raíz, luego todo el derecho. Por la propiedad del BST, TODOS los valores del subárbol izquierdo son menores que la raíz y TODOS los del derecho son mayores. Por la hipótesis, la parte izquierda sale ordenada y la derecha también. Concatenar [izquierda ordenada] + raíz + [derecha ordenada] produce una secuencia globalmente ascendente. ∎</p>` },
-
-    { tipo:"dev", num:7, pts:6, tema:"Diseño de Algoritmos",
-      enunciado:"Diseñe un algoritmo que determine si un grafo NO dirigido contiene al menos un ciclo, usando DFS. Escriba el pseudocódigo (4 pts) y justifique su complejidad O(V+E) (2 pts).",
-      criterios:[
-        {desc:"Recorre con DFS marcando visitados y pasando el 'padre' de cada nodo", kw:["dfs","visitados","padre","recursi","profundidad"], pts:2},
-        {desc:"Detecta ciclo si encuentra un vecino ya visitado distinto del padre", kw:["ya visitado","distinto del padre","diferente al padre","!= padre","arista de retorno","back edge","ciclo"], pts:2},
-        {desc:"Justifica O(V+E): cada vértice y arista se visita una vez", kw:["o(v+e)","v+e","cada vertice","cada arista","una vez"], pts:2}
-      ],
-      solucion:`<pre>tieneCiclo(grafo):
-  visitados = {}
-  para cada vértice v del grafo:
-     si v no está visitado:
-        si dfs(v, -1): retornar VERDADERO
-  retornar FALSO
-
-dfs(v, padre):
-  visitados.add(v)
-  para cada vecino u de v:
-     si u no está visitado:
-        si dfs(u, v): retornar VERDADERO
-     sino si u != padre:
-        retornar VERDADERO      // arista de retorno = ciclo
-  retornar FALSO</pre>
-<p><b>O(V+E):</b> DFS visita cada vértice una vez y recorre cada arista (dos veces en total en un grafo no dirigido, lo cual sigue siendo O(E)). Total: O(V+E).</p>` }
-  ]
-},
-{
-  n:4, subtitulo:"Simulacro Integral · D",
-  temas:"Patrones · Pilas y Colas · BST · DFS/BFS · Dijkstra/Kruskal",
-  preguntas:[
-    { tipo:"mcq", num:1, pts:1, tema:"POO / Patrones",
-      enunciado:"Se necesita representar un sistema de archivos donde una carpeta puede contener archivos individuales u otras carpetas, y se quiere tratar a archivos y carpetas de forma uniforme (con la misma interfaz). ¿Qué patrón de diseño es el más adecuado?",
-      opciones:["Proxy","Composite","Singleton","Iterator","Decorator"],
-      correcta:1,
-      explicacion:"Composite organiza objetos en una jerarquía tipo árbol y permite tratar objetos individuales (hojas) y grupos (compuestos) de la misma manera, ideal para carpetas/archivos." },
-
-    { tipo:"mcq", num:2, pts:1, tema:"Pilas y Colas",
-      enunciado:"Sobre una COLA vacía: q.push(5); q.push(8); q.pop(); q.push(3); q.push(1); q.pop(); ¿Qué valor está ahora en el frente (front())?",
-      opciones:["8","5","3","1","La cola queda vacía"],
-      correcta:2,
-      explicacion:"FIFO. [5,8]→pop(saca 5)→[8]→+3→[8,3]→+1→[8,3,1]→pop(saca 8)→[3,1]. front()=3." },
-
-    { tipo:"mcq", num:3, pts:1, tema:"Árboles (BST)",
-      enunciado:"En un BST vacío se insertan: 40, 20, 60, 10, 30, 50, 70. ¿Cuál es su recorrido en PreOrden?",
-      opciones:["10 20 30 40 50 60 70","40 20 10 30 60 50 70","10 30 20 50 70 60 40","40 60 20 70 50 30 10","20 10 30 40 60 50 70"],
-      correcta:1,
-      explicacion:"PreOrden = raíz, izquierda, derecha: 40 → (20 → 10, 30) → (60 → 50, 70) = 40 20 10 30 60 50 70. (La opción (a) es el InOrden ascendente; la (c) es el PostOrden.)" },
-
-    { tipo:"mcq", num:4, pts:1, tema:"Grafos (DFS/BFS)",
-      enunciado:"¿Cuál de las siguientes afirmaciones sobre DFS y BFS es CORRECTA?",
-      opciones:[
-        "Ambos usan una cola de prioridad.",
-        "DFS usa una pila y BFS usa una cola; ambos tienen complejidad O(V+E).",
-        "BFS usa una pila y DFS una cola; ambos son O(V²).",
-        "Solo DFS puede encontrar el camino más corto en grafos no ponderados.",
-        "DFS y BFS solo funcionan en árboles, no en grafos."],
-      correcta:1,
-      explicacion:"DFS = pila (profundidad); BFS = cola (niveles). Ambos visitan cada vértice y arista una vez → O(V+E). El camino más corto no ponderado lo garantiza BFS, no DFS." },
-
-    { tipo:"dev", num:5, pts:4, tema:"Grafos (Kruskal)",
-      enunciado:"Ejecute Kruskal sobre el grafo. (a) Dé las aristas del MST y su peso total. (b) Indique cuál es la PRIMERA arista rechazada por formar un ciclo y explique por qué un MST de V nodos tiene exactamente V-1 aristas.  Aristas: A-B(1), A-C(3), B-C(2), B-D(4), C-D(5), D-E(6), C-E(7).",
-      criterios:[
-        {desc:"MST correcto: A-B(1), B-C(2), B-D(4), D-E(6); peso total 13", kw:["a-b","b-c","b-d","d-e","13"], pts:2},
-        {desc:"Primera arista rechazada A-C(3) por ciclo; un MST de V nodos tiene V-1 aristas", kw:["a-c","rechaz","ciclo","v-1","v - 1","sin ciclos","conecta"], pts:2}
-      ],
-      solucion:`<pre>Orden por peso: A-B(1), B-C(2), A-C(3), B-D(4), C-D(5), D-E(6), C-E(7)
-A-B(1) ✓   B-C(2) ✓   A-C(3) ✗ ciclo (A y C ya conectados)
-B-D(4) ✓   C-D(5) ✗ ciclo   D-E(6) ✓   → 4 aristas</pre>
-<p><b>MST:</b> A-B(1), B-C(2), B-D(4), D-E(6). <b>Peso total = 13.</b> Primera rechazada: <b>A-C(3)</b>.</p>
-<p>Un árbol de expansión conecta los V nodos sin ciclos; para conectar V nodos hacen falta exactamente V-1 aristas (una más crearía un ciclo, una menos dejaría el grafo desconectado).</p>` },
-
-    { tipo:"dev", num:6, pts:6, tema:"Correctitud",
-      enunciado:"Demuestre por inducción que la inserción recursiva en un BST mantiene la propiedad del BST (para todo nodo n: los valores del subárbol izquierdo son menores que n y los del derecho, mayores).",
-      codigo:`Nodo* insertar(Nodo* nodo, int x){
-    if (nodo == nullptr) return new Nodo(x);
-    if (x < nodo->dato) nodo->left  = insertar(nodo->left,  x);
-    else if (x > nodo->dato) nodo->right = insertar(nodo->right, x);
-    return nodo;
-}`,
-      criterios:[
-        {desc:"Caso base: insertar en subárbol vacío crea una hoja, que trivialmente cumple la propiedad", kw:["caso base","vacio","nullptr","hoja","nuevo nodo","trivial"], pts:2},
-        {desc:"Hipótesis inductiva: insertar en el subárbol correcto mantiene la propiedad en ese subárbol", kw:["hipotesis","inductiv","subarbol","asumimos","suponemos"], pts:2},
-        {desc:"Paso inductivo: x menor baja a la izquierda y x mayor a la derecha, respetando el orden en cada nodo", kw:["izquierda","derecha","menor","mayor","respeta","se coloca","lado correcto"], pts:2}
-      ],
-      solucion:`<p><b>Caso base:</b> si el subárbol es vacío (nodo == nullptr), se crea un nuevo nodo hoja con x. Un único nodo cumple trivialmente la propiedad del BST.</p>
-<p><b>Hipótesis inductiva:</b> supongamos que insertar() mantiene la propiedad del BST en subárboles de menor altura.</p>
-<p><b>Paso inductivo:</b> en un nodo con valor 'dato': si x &lt; dato, la inserción se dirige al subárbol IZQUIERDO (que por la propiedad debe contener solo valores &lt; dato, y x lo es). Simétricamente, si x &gt; dato va al subárbol DERECHO (valores &gt; dato). Por la hipótesis, la inserción en ese subárbol mantiene su propia propiedad. Como x se coloca en el lado correcto respecto a cada nodo del camino, la propiedad global se preserva. ∎</p>` },
-
-    { tipo:"dev", num:7, pts:6, tema:"Diseño de Algoritmos",
-      enunciado:"Diseñe un algoritmo que verifique si un árbol binario dado es un BST válido. Escriba el pseudocódigo (4 pts) y justifique la complejidad O(n) (2 pts).",
-      criterios:[
-        {desc:"Verifica con un rango [min,max] por recursión (o con recorrido InOrden creciente)", kw:["rango","min","max","limite","inorden","in-orden","ascendente","creciente","cota"], pts:2},
-        {desc:"Cada nodo cumple min < valor < max y se ajustan los límites al bajar", kw:["valor","actualiza","ajusta","izquierda","derecha","limites","cota","menor","mayor"], pts:2},
-        {desc:"Justifica O(n): visita cada nodo una vez", kw:["o(n)","cada nodo","una vez","n nodos","lineal","visita todos"], pts:2}
-      ],
-      solucion:`<pre>esBST(nodo, min, max):
-  si nodo == null: retornar VERDADERO
-  si nodo.dato ≤ min  O  nodo.dato ≥ max:
-     retornar FALSO
-  retornar esBST(nodo.left,  min, nodo.dato)
-      Y    esBST(nodo.right, nodo.dato, max)
-
-// llamada inicial: esBST(raiz, -INFINITO, +INFINITO)</pre>
-<p>Alternativa: hacer un recorrido <b>InOrden</b> y verificar que los valores salgan en orden estrictamente creciente.</p>
-<p><b>O(n):</b> cada nodo se visita exactamente una vez y realiza trabajo O(1); con n nodos, el total es O(n).</p>` }
-  ]
-},
-{
-  n:5, subtitulo:"Simulacro Integral · E",
-  temas:"Patrones · Pilas y Colas · BST · DFS/BFS · Dijkstra/Kruskal",
-  preguntas:[
-    { tipo:"mcq", num:1, pts:1, tema:"POO / Patrones",
-      enunciado:"Analice el código y determine qué se imprime exactamente en la consola.",
-      codigo:`#include <iostream>
-using namespace std;
-class Video { public: virtual void play()=0; };
-class Real : public Video {
-public: void play() override { cout << "PLAY"; }
-};
-class Proxy : public Video {
-    Real real; bool permiso;
-public:
-    Proxy(bool p): permiso(p) {}
-    void play() override {
-        if (permiso) real.play();
-        else cout << "DENEGADO";
-    }
-};
-int main(){
-    Video* v = new Proxy(false);
-    v->play();
-}`,
-      opciones:["PLAY","DENEGADO","PLAYDENEGADO","(no imprime nada)","Error de compilación"],
-      correcta:1,
-      explicacion:"El Proxy controla el acceso al objeto real. Como permiso=false, no delega en Real::play() e imprime 'DENEGADO'. Ese es el propósito del patrón Proxy: intermediar y controlar el acceso." },
-
-    { tipo:"mcq", num:2, pts:1, tema:"Pilas y Colas",
-      enunciado:"Sobre una PILA vacía: push(2); push(4); push(6); pop(); push(8); pop(); pop(); ¿Cuántos elementos quedan y cuál es el top()?",
-      opciones:["1 elemento, top = 2","2 elementos, top = 4","1 elemento, top = 4","0 elementos (vacía)","3 elementos, top = 6"],
-      correcta:0,
-      explicacion:"[2,4,6]→pop(6)→[2,4]→push8→[2,4,8]→pop(8)→[2,4]→pop(4)→[2]. Queda 1 elemento y top()=2." },
-
-    { tipo:"mcq", num:3, pts:1, tema:"Árboles (BST)",
-      enunciado:"Se insertan en un BST: 50, 25, 75, 10, 40, 60. ¿Cuántos nodos tiene (size) y cuál es su recorrido InOrden?",
-      opciones:[
-        "6 nodos; InOrden: 10 25 40 50 60 75",
-        "6 nodos; InOrden: 50 25 10 40 75 60",
-        "5 nodos; InOrden: 10 25 40 60 75",
-        "6 nodos; InOrden: 50 75 25 60 40 10",
-        "7 nodos; InOrden: 10 25 40 50 60 75"],
-      correcta:0,
-      explicacion:"Se insertaron 6 valores distintos → 6 nodos. En un BST el InOrden da los valores ordenados ascendentemente: 10 25 40 50 60 75. (La opción (b) es el PreOrden.)" },
-
-    { tipo:"mcq", num:4, pts:1, tema:"Grafos (Kruskal/Dijkstra)",
-      enunciado:"¿Cuál afirmación distingue correctamente a Dijkstra de Kruskal?",
-      opciones:[
-        "Ambos calculan el árbol de expansión mínima.",
-        "Dijkstra calcula el camino más corto desde un origen a todos los nodos; Kruskal calcula el árbol de expansión mínima (MST).",
-        "Dijkstra calcula el MST y Kruskal el camino más corto.",
-        "Ambos requieren que el grafo sea no ponderado.",
-        "Kruskal solo funciona en grafos dirigidos."],
-      correcta:1,
-      explicacion:"Dijkstra = camino de menor costo desde un origen a todos los demás. Kruskal = árbol de expansión mínima (conectar todos los nodos con el menor peso total, sin ciclos). Ambos son voraces pero resuelven problemas distintos." },
-
-    { tipo:"dev", num:5, pts:4, tema:"Grafos (Dijkstra)",
-      enunciado:"Ejecute Dijkstra sobre el grafo ponderado con origen A. (a) Dé la distancia mínima de A a cada nodo, indicando el orden en que se van fijando. (b) ¿Qué ruta óptima sigue A hasta D?  Aristas: A-B(3), A-C(1), C-B(1), B-D(5), C-D(7), B-E(1), D-E(2).",
-      criterios:[
-        {desc:"Distancias correctas: A=0, C=1, B=2, E=3, D=5", kw:["a=0","c=1","b=2","e=3","d=5","0 1 2 3 5"], pts:2},
-        {desc:"Ruta óptima A→D es A-C-B-E-D con costo 5 (mejor que A-B-D=8 o A-C-D=8)", kw:["a-c-b-e-d","a→c→b→e→d","c-b-e-d","ruta","costo 5"], pts:2}
-      ],
-      solucion:`<pre>Inicio: A=0
-Visita A(0): B=3, C=1
-Visita C(1): B=min(3,1+1)=2, D=1+7=8
-Visita B(2): D=min(8,2+5)=7, E=2+1=3
-Visita E(3): D=min(7,3+2)=5
-Visita D(5): fin</pre>
-<p><b>Distancias:</b> A=0, C=1, B=2, E=3, D=5. Orden en que se fijan: A, C, B, E, D.</p>
-<p><b>Ruta óptima A→D:</b> A→C→B→E→D con costo 1+1+1+2 = <b>5</b>, mejor que A→B→D (8) o A→C→D (8).</p>` },
-
-    { tipo:"dev", num:6, pts:6, tema:"Correctitud (Kruskal)",
-      enunciado:"Explique por qué el algoritmo de Kruskal produce un Árbol de Expansión Mínima (MST). Justifique: (a) por qué nunca forma ciclos, y (b) por qué el resultado tiene peso mínimo.",
-      criterios:[
-        {desc:"No forma ciclos: usa Union-Find; solo une aristas cuyos extremos están en conjuntos distintos", kw:["union-find","conjuntos","representante","ancestro","distinto","diferentes","no forma ciclo","mismo conjunto"], pts:3},
-        {desc:"Peso mínimo: procesa aristas de menor a mayor peso (voraz) y agrega la más ligera que no cierra ciclo (propiedad de corte)", kw:["menor a mayor","ordena","voraz","greedy","mas ligera","corte","minimo","arista segura","ordenar"], pts:3}
-      ],
-      solucion:`<p><b>(a) Sin ciclos:</b> antes de añadir una arista (u,v), Kruskal compara los representantes (ancestros) de u y v con Union-Find. Si son iguales, u y v ya están conectados y añadirla cerraría un ciclo → se descarta. Solo se unen conjuntos disjuntos, por lo que el resultado es un bosque/árbol sin ciclos.</p>
-<p><b>(b) Peso mínimo:</b> las aristas se procesan en orden creciente de peso (estrategia voraz). En cada paso se agrega la arista más ligera que conecta dos componentes distintas. Por la <i>propiedad del corte</i>, la arista de menor peso que cruza un corte pertenece a algún MST; por eso agregarla es siempre una decisión segura. Al terminar con V−1 aristas se obtiene un árbol de expansión de peso mínimo. ∎</p>` },
-
-    { tipo:"dev", num:7, pts:6, tema:"Diseño de Algoritmos",
-      enunciado:"Diseñe un algoritmo que cuente el número de componentes conexas de un grafo no dirigido, usando BFS o DFS. Escriba el pseudocódigo (4 pts) y justifique O(V+E) (2 pts).",
-      criterios:[
-        {desc:"Recorre todos los vértices; por cada uno no visitado, lanza un BFS/DFS y cuenta +1", kw:["cada vertice","no visitado","bfs","dfs","contador","+1","+ 1","incrementa","componente"], pts:2},
-        {desc:"El BFS/DFS marca como visitados todos los nodos de la misma componente", kw:["visitados","marca","misma componente","alcanzables","todos los nodos","recorre"], pts:2},
-        {desc:"Justifica O(V+E): cada vértice y arista se procesa una sola vez en total", kw:["o(v+e)","v+e","una vez","cada vertice","cada arista"], pts:2}
-      ],
-      solucion:`<pre>contarComponentes(grafo):
-  visitados = {};  contador = 0
-  para cada vértice v del grafo:
-     si v no está visitado:
-        contador = contador + 1
-        BFS(v)      // marca visitados todos los nodos alcanzables desde v
-  retornar contador
-
-BFS(inicio):
-  cola.push(inicio); visitados.add(inicio)
-  mientras cola no vacía:
-     u = cola.pop()
-     para cada vecino w de u:
-        si w no visitado: visitados.add(w); cola.push(w)</pre>
-<p><b>O(V+E):</b> aunque hay un bucle externo sobre V, cada vértice se explora en un BFS UNA sola vez (queda marcado) y cada arista se recorre una vez. La suma total del trabajo es O(V+E).</p>` }
-  ]
-},
-{
-  n:6, subtitulo:"Simulacro Integral · F",
-  temas:"Patrones · Pilas y Colas · BST · DFS/BFS · Dijkstra/Kruskal",
-  preguntas:[
-    { tipo:"mcq", num:1, pts:1, tema:"POO / Patrones",
-      enunciado:"Analice el código y determine qué se imprime exactamente en la consola.",
-      codigo:`#include <iostream>
-using namespace std;
-class B {
-public:
-    B& a(){ cout << "a"; return *this; }
-    B& b(){ cout << "b"; return *this; }
-    B& c(){ cout << "c"; return *this; }
-};
-int main(){
-    B x;
-    x.a().b().c().a();
-}`,
-      opciones:["abc","abca","aabc","cba","Error: no se puede encadenar"],
-      correcta:1,
-      explicacion:"Cada método imprime su letra y devuelve *this (referencia al mismo objeto), lo que permite encadenar. El orden a().b().c().a() imprime 'abca'. Es la técnica de encadenamiento del patrón Builder." },
-
-    { tipo:"mcq", num:2, pts:1, tema:"Pilas y Colas",
-      enunciado:"Sobre una COLA vacía: push(1); push(2); push(3); push(4); pop(); pop(); ¿Cuáles son ahora front() y back()?",
-      opciones:["front=1, back=4","front=3, back=4","front=2, back=3","front=4, back=3","front=3, back=3"],
-      correcta:1,
-      explicacion:"FIFO: pop elimina por el frente. [1,2,3,4] → pop(1) → pop(2) → [3,4]. front()=3 (el más antiguo restante) y back()=4 (el último insertado)." },
-
-    { tipo:"mcq", num:3, pts:1, tema:"Árboles (BST)",
-      enunciado:"¿Qué recorrido de un árbol binario se usa para LIBERAR (delete) toda su memoria de forma segura, y por qué?",
-      opciones:[
-        "InOrden, porque visita en orden ascendente.",
-        "PreOrden, porque visita la raíz primero.",
-        "PostOrden, porque borra ambos hijos antes que el nodo padre.",
-        "BFS por niveles, porque es el más rápido.",
-        "Cualquiera funciona igual, el orden no importa."],
-      correcta:2,
-      explicacion:"PostOrden (izquierda–derecha–nodo) garantiza eliminar primero los subárboles hijos y al final el padre. Así nunca se accede a un puntero ya liberado. Por eso el destructor de un árbol usa PostOrden." },
-
-    { tipo:"mcq", num:4, pts:1, tema:"Grafos (Dijkstra)",
-      enunciado:"En la implementación típica de Dijkstra con una cola de prioridad, ¿cuál es su complejidad y por qué se insertan las distancias en negativo en C++?",
-      opciones:[
-        "O(V²); porque la priority_queue no ordena.",
-        "O((V+E)·log V); las distancias se insertan negativas para simular una cola de mínimos con la priority_queue de máximos de C++.",
-        "O(V+E); porque no usa ninguna estructura ordenada.",
-        "O(E·log E); las distancias se insertan negativas para ahorrar memoria.",
-        "O(1); Dijkstra es de tiempo constante."],
-      correcta:1,
-      explicacion:"Con cola de prioridad, Dijkstra es O((V+E)·log V). La priority_queue de C++ extrae el MAYOR por defecto; insertar las distancias en negativo hace que el 'mayor negativo' corresponda a la menor distancia real, simulando una cola de mínimos." },
-
-    { tipo:"dev", num:5, pts:4, tema:"Grafos (Kruskal)",
-      enunciado:"Ejecute Kruskal sobre el grafo. (a) Dé las aristas del MST y su peso total. (b) Explique por qué la estrategia voraz de Kruskal (tomar siempre la arista más ligera que no forme ciclo) produce un árbol de peso mínimo.  Aristas: A-B(4), A-C(1), B-C(2), B-D(5), C-D(8), C-E(10), D-E(3).",
-      criterios:[
-        {desc:"MST correcto: A-C(1), B-C(2), D-E(3), B-D(5); peso total 11", kw:["a-c","b-c","d-e","b-d","11"], pts:2},
-        {desc:"Explica por qué el voraz es óptimo (propiedad del corte: la arista más ligera que cruza un corte pertenece a algún MST)", kw:["voraz","greedy","corte","mas ligera","propiedad","arista segura","optimo","minimo"], pts:2}
-      ],
-      solucion:`<pre>Orden por peso: A-C(1), B-C(2), D-E(3), A-B(4), B-D(5), C-D(8), C-E(10)
-A-C(1) ✓   B-C(2) ✓   D-E(3) ✓
-A-B(4) ✗ ciclo   B-D(5) ✓ (une {A,B,C} con {D,E})   → 4 aristas</pre>
-<p><b>MST:</b> A-C(1), B-C(2), D-E(3), B-D(5). <b>Peso total = 11.</b></p>
-<p><b>Por qué el voraz es óptimo:</b> por la <i>propiedad del corte</i>, la arista de menor peso que cruza cualquier corte del grafo pertenece a algún MST. Kruskal, al tomar en cada paso la arista más ligera que une dos componentes distintas, siempre añade una arista segura; por eso el resultado es de peso mínimo.</p>` },
-
-    { tipo:"dev", num:6, pts:6, tema:"Correctitud (DFS)",
-      enunciado:"Demuestre por inducción la correctitud del algoritmo DFS: pruebe que DFS, iniciado en un nodo s, visita TODOS los nodos alcanzables desde s.",
-      criterios:[
-        {desc:"Caso base: el nodo inicial s se visita inmediatamente (alcanzable trivialmente)", kw:["caso base","nodo inicial","s se visita","trivial","inmediatamente","alcanzable"], pts:2},
-        {desc:"Hipótesis inductiva: todos los nodos alcanzables hasta cierto punto ya fueron visitados", kw:["hipotesis","inductiv","alcanzables","asumimos","suponemos","ya visitados"], pts:2},
-        {desc:"Paso inductivo: al visitar un vecino no visitado se siguen visitando todos los alcanzables; termina sin vecinos nuevos", kw:["paso inductivo","vecino","no visitado","se visitan todos","termina","alcanzables","retrocede","backtrack"], pts:2}
-      ],
-      solucion:`<p><b>Hipótesis:</b> en cada llamada del algoritmo, todos los nodos alcanzables desde s hasta el nodo actual ya han sido visitados.</p>
-<p><b>Caso base:</b> DFS comienza en s y lo marca visitado de inmediato; la hipótesis se cumple trivialmente (s es alcanzable desde sí mismo con distancia 0).</p>
-<p><b>Paso inductivo:</b> supongamos la hipótesis cierta en un paso dado. Al elegir un vecino no visitado w del nodo actual y llamar DFS(w), por la hipótesis ya se visitaron los alcanzables anteriores; al visitar w se añaden todos los nodos alcanzables a través de w. Como se exploran recursivamente todos los vecinos no visitados antes de retroceder, ningún nodo alcanzable queda sin visitar. El algoritmo termina cuando no hay vecinos nuevos, momento en que todos los alcanzables desde s han sido visitados. ∎</p>` },
-
-    { tipo:"dev", num:7, pts:6, tema:"Diseño de Algoritmos",
-      enunciado:"Dado un grafo PONDERADO con pesos no negativos, diseñe un algoritmo que calcule la distancia mínima desde un nodo origen a todos los demás. Escriba el pseudocódigo (4 pts) y justifique O((V+E)·log V) (2 pts).",
-      criterios:[
-        {desc:"Inicializa distancias (origen=0, resto=∞) y usa una cola de prioridad de mínimos", kw:["distancia","infinito","origen = 0","origen=0","cola de prioridad","priority","minimos","min"], pts:2},
-        {desc:"Relaja aristas: si dist[v]+peso < dist[vi] se actualiza y se reinserta en la cola", kw:["relaj","peso","actualiza","distancia menor","mejora","dist[v]","suma"], pts:2},
-        {desc:"Justifica O((V+E)·log V): cada arista genera una operación en la cola de prioridad (log V)", kw:["(v+e)","log v","cola de prioridad","operacion","log","cada arista","insercion","extrae"], pts:2}
-      ],
-      solucion:`<pre>dijkstra(grafo, origen):
-  para cada v: dist[v] = INFINITO
-  dist[origen] = 0
-  Q = cola de prioridad de mínimos;  Q.push( (0, origen) )
-  mientras Q no vacía:
-     (d, v) = Q.pop()            // menor distancia
-     si d &gt; dist[v]: continuar  // entrada obsoleta
-     para cada arista (v, vi) con peso w:
-        si dist[v] + w &lt; dist[vi]:
-           dist[vi] = dist[v] + w        // relajación
-           Q.push( (dist[vi], vi) )
-  retornar dist</pre>
-<p><b>O((V+E)·log V):</b> cada vértice se extrae una vez y cada arista puede provocar una inserción en la cola de prioridad; cada operación de la cola cuesta O(log V). Sumando: O((V+E)·log V).</p>` }
-  ]
-},
-];
-
-/* ======================= UTILIDADES ======================= */
-function norm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,' ');}
-function el(tag,cls,txt){const e=document.createElement(tag);if(cls)e.className=cls;if(txt!=null)e.textContent=txt;return e;}
-const LETRAS=['a','b','c','d','e','f'];
-let examenActual=null;
-
-/* ======================= HOME ======================= */
-function renderHome(){
-  const g=document.getElementById('examGrid');g.innerHTML='';
-  EXAMENES.forEach((ex,i)=>{
-    const c=el('div','exam-card');
-    c.appendChild(el('span','badge','Examen Final '+ex.n));
-    c.appendChild(el('h3',null,ex.subtitulo));
-    c.appendChild(el('div','sub','7 preguntas · 20 puntos'));
-    c.appendChild(el('div','topics',ex.temas));
-    c.appendChild(el('div','go','Comenzar →'));
-    c.onclick=()=>abrirExamen(i);
-    g.appendChild(c);
+document.addEventListener("DOMContentLoaded", function() {
+  // Render LaTeX
+  renderMathInElement(document.body, {
+    delimiters: [
+      {left: "$$", right: "$$", display: true},
+      {left: "$", right: "$", display: false}
+    ],
+    throwOnError: false
   });
-}
-
-/* ======================= RENDER EXAMEN ======================= */
-function abrirExamen(idx){
-  examenActual=idx;const ex=EXAMENES[idx];
-  document.getElementById('home').classList.add('hidden');
-  document.getElementById('examView').classList.remove('hidden');
-  document.getElementById('tbTitle').textContent='Examen Final '+ex.n+' — '+ex.subtitulo;
-  document.getElementById('scorebanner').classList.remove('show');
-  document.getElementById('submitHint').textContent='';
-  const sheet=document.getElementById('sheet');sheet.innerHTML='';
-
-  // cabecera estilo examen
-  const head=el('div','sheet-head');
-  const L=el('div','l');L.appendChild(el('span','logo','UTEC'));
-  const R=el('div','r');
-  R.appendChild(el('div','t1','Programación III'));
-  R.appendChild(el('div','t2','Examen Final '+ex.n));
-  R.appendChild(el('div','t3','Pregrado · 2026 · CS2013'));
-  head.appendChild(L);head.appendChild(R);
-  sheet.appendChild(head);
-
-  const body=el('div','sheet-body');
-  const instr=el('div','instr');
-  instr.appendChild(el('div',null,'Indicaciones:'));
-  const ul=el('ul');
-  ['Esta evaluación contiene 7 preguntas. El total de puntos es 20.',
-   'Las preguntas 1, 2, 3 y 4 son para marcar; 5, 6 y 7 para desarrollar.',
-   'Justifica cada respuesta de desarrollo. Puedes escribir pseudocódigo.'].forEach(t=>ul.appendChild(el('li',null,t)));
-  instr.appendChild(ul);
-  body.appendChild(instr);
-
-  // tabla de puntos
-  const tbl=el('table','ptable');
-  const cap=el('caption','Tabla de puntos');tbl.appendChild(cap);
-  const hr=el('tr');['Pregunta','Puntos'].forEach(h=>hr.appendChild(el('th',null,h)));tbl.appendChild(hr);
-  ex.preguntas.forEach(p=>{const r=el('tr');r.appendChild(el('td',null,String(p.num)));r.appendChild(el('td',null,String(p.pts)));tbl.appendChild(r);});
-  const rt=el('tr');rt.appendChild(el('td',null,'Total'));rt.appendChild(el('td',null,'20'));tbl.appendChild(rt);
-  body.appendChild(tbl);
-
-  ex.preguntas.forEach((p,pi)=>body.appendChild(renderPregunta(p,pi)));
-  sheet.appendChild(body);
-  window.scrollTo({top:0});
-  document.getElementById('btnEntregar').disabled=false;
-}
-
-function renderPregunta(p,pi){
-  const box=el('div','pregunta');box.id='p'+pi;
-  const h=el('div','p-head');
-  h.appendChild(el('span','p-num',p.num+'.'));
-  h.appendChild(el('span','p-pts','('+p.pts+(p.pts===1?' punto':' puntos')+')'));
-  h.appendChild(el('span','p-tema',p.tema));
-  box.appendChild(h);
-  box.appendChild(el('div','p-enun',p.enunciado));
-  if(p.codigo){const pre=el('pre','codebox');pre.textContent=p.codigo;box.appendChild(pre);}
-
-  if(p.tipo==='mcq'){
-    const cont=el('div','opciones');
-    p.opciones.forEach((op,oi)=>{
-      const lab=el('label','opcion');lab.dataset.oi=oi;
-      const inp=document.createElement('input');inp.type='radio';inp.name='q'+pi;inp.value=oi;
-      lab.appendChild(inp);
-      lab.appendChild(el('span','letra',LETRAS[oi]+')'));
-      const sp=el('span','optxt');sp.textContent=op;lab.appendChild(sp);
-      inp.onchange=()=>{cont.querySelectorAll('.opcion').forEach(o=>o.classList.remove('sel'));lab.classList.add('sel');};
-      cont.appendChild(lab);
+  // Quizzes
+  document.querySelectorAll(".quiz").forEach(function(qz){
+    var correct = parseInt(qz.dataset.a, 10);
+    var opts = qz.querySelectorAll("button.opt");
+    opts.forEach(function(btn, i){
+      btn.addEventListener("click", function(){
+        if(qz.classList.contains("done")) return;
+        qz.classList.add("done");
+        opts.forEach(function(b, j){
+          b.disabled = true;
+          if(j === correct) b.classList.add("right");
+        });
+        if(i !== correct) btn.classList.add("wrong");
+        btn.insertAdjacentText("beforeend", i === correct ? "  ✔" : "  ✘");
+      });
     });
-    box.appendChild(cont);
-  } else {
-    const ta=el('textarea','resp');ta.id='ta'+pi;ta.placeholder='Escribe aquí tu desarrollo (respuesta, justificación y/o pseudocódigo)...';
-    box.appendChild(ta);
-    box.appendChild(el('div','hint','Consejo: menciona explícitamente el resultado/complejidad final y justifica cada paso. Tras enviar verás la rúbrica y la solución.'));
-  }
-  const fb=el('div','fb');fb.id='fb'+pi;box.appendChild(fb);
-  return box;
-}
-
-/* ======================= CALIFICACIÓN ======================= */
-function entregar(){
-  const ex=EXAMENES[examenActual];let total=0;let contestadas=0;
-  ex.preguntas.forEach((p,pi)=>{
-    const fb=document.getElementById('fb'+pi);fb.innerHTML='';fb.className='fb show';
-    if(p.tipo==='mcq'){
-      const box=document.getElementById('p'+pi);
-      const sel=box.querySelector('input[name="q'+pi+'"]:checked');
-      const chosen=sel?parseInt(sel.value):-1;
-      if(chosen>=0)contestadas++;
-      box.querySelectorAll('.opcion').forEach((o,oi)=>{
-        o.classList.add('lock');o.querySelector('input').disabled=true;
-        if(oi===p.correcta)o.classList.add('ok');
-        if(oi===chosen&&chosen!==p.correcta)o.classList.add('bad');
-      });
-      const ok=chosen===p.correcta;const got=ok?p.pts:0;total+=got;
-      fb.classList.add(ok?'correcto':'incorrecto');
-      fb.appendChild(el('div','fbt',(ok?'✔ Correcto (+'+p.pts+')':'✘ Incorrecto (+0)')+' — Respuesta: '+LETRAS[p.correcta]+')'));
-      fb.appendChild(el('div',null,p.explicacion));
-    } else {
-      const ta=document.getElementById('ta'+pi);const txt=norm(ta.value);const has=ta.value.trim().length>0;
-      if(has)contestadas++;
-      ta.readOnly=true;
-      let got=0;const critUl=el('ul','crit');
-      p.criterios.forEach(cr=>{
-        const met=has&&cr.kw.some(k=>txt.includes(norm(k)));
-        if(met)got+=cr.pts;
-        const li=el('li',met?'met':'miss',cr.desc+' ('+(met?'+':'0/')+cr.pts+(met?'':'')+' pts)');
-        critUl.appendChild(li);
-      });
-      total+=got;
-      fb.classList.add(got>=p.pts*0.6?'correcto':'incorrecto');
-      fb.appendChild(el('div','fbt','Puntaje estimado por rúbrica: '+got+' / '+p.pts+'  (aproximado — usa la solución y la IA para afinar)'));
-      fb.appendChild(critUl);
-      // solución modelo
-      const sol=el('div','solucion');sol.appendChild(el('div','st','Solución modelo'));
-      const solBody=el('div');solBody.innerHTML=p.solucion;sol.appendChild(solBody);
-      fb.appendChild(sol);
-      // botón IA
-      const btn=el('button','copybtn','📋 Copiar esta pregunta + mi respuesta para revisión con IA');
-      btn.onclick=()=>{copiarIA(p,ta.value,btn);};
-      fb.appendChild(btn);
-    }
   });
-  // banner
-  const banner=document.getElementById('scorebanner');
-  const auto=ex.preguntas.filter(p=>p.tipo==='mcq').reduce((a,p)=>a+p.pts,0);
-  banner.innerHTML='';
-  const row=el('div','sb-row');
-  const big=el('div');big.appendChild(el('div','big',total.toFixed(0)+' / 20'));big.appendChild(el('div','sb-sub','Puntaje estimado'));
-  row.appendChild(big);
-  row.appendChild(el('div','chip','Opción múltiple (1–4): calificado automáticamente'));
-  row.appendChild(el('div','chip','Desarrollo (5–7): estimado por rúbrica — revisa la solución'));
-  banner.appendChild(row);
-  banner.classList.add('show');
-  document.getElementById('btnEntregar').disabled=true;
-  document.getElementById('submitHint').textContent='Examen entregado. Revisa el detalle en cada pregunta.';
-  window.scrollTo({top:0,behavior:'smooth'});
-}
-
-function reintentar(){abrirExamen(examenActual);}
-function volver(){document.getElementById('examView').classList.add('hidden');document.getElementById('home').classList.remove('hidden');window.scrollTo({top:0});}
-
-/* ======================= COPIAR PARA IA ======================= */
-function promptPregunta(p,resp){
-  let s='### Pregunta '+p.num+' ('+p.pts+' pts) — '+p.tema+'\n';
-  s+=p.enunciado+'\n';
-  if(p.codigo)s+='```\n'+p.codigo+'\n```\n';
-  s+='\nMI RESPUESTA:\n"""\n'+(resp.trim()||'(en blanco)')+'\n"""\n';
-  s+='\nRÚBRICA (criterios esperados):\n';
-  p.criterios.forEach(cr=>{s+='- ('+cr.pts+' pts) '+cr.desc+'\n';});
-  s+='\nSOLUCIÓN MODELO (referencia, en HTML):\n'+p.solucion.replace(/<[^>]+>/g,'')+'\n';
-  return s;
-}
-function copiarIA(p,resp,btn){
-  const head='Actúa como profesor de Programación III (C++, estructuras de datos y algoritmos). Corrige la siguiente pregunta de examen comparando mi respuesta con la rúbrica y la solución modelo. Asigna un puntaje sobre '+p.pts+' puntos, señala errores y explica cómo mejorar.\n\n';
-  copy(head+promptPregunta(p,resp),btn);
-}
-function copiarTodoIA(){
-  const ex=EXAMENES[examenActual];
-  let s='Actúa como profesor de Programación III (C++, estructuras de datos y algoritmos). Corrige TODO mi examen final comparando cada respuesta con su rúbrica y solución modelo. Da el puntaje por pregunta y un total sobre 20, con retroalimentación.\n\n';
-  s+='# Examen Final '+ex.n+' — '+ex.subtitulo+'\n\n';
-  ex.preguntas.forEach((p,pi)=>{
-    if(p.tipo==='mcq'){
-      const box=document.getElementById('p'+pi);
-      const sel=box?box.querySelector('input[name="q'+pi+'"]:checked'):null;
-      const chosen=sel?LETRAS[parseInt(sel.value)]:'(sin marcar)';
-      s+='### Pregunta '+p.num+' ('+p.pts+' pt) — '+p.tema+'\n'+p.enunciado+'\n';
-      if(p.codigo)s+='```\n'+p.codigo+'\n```\n';
-      p.opciones.forEach((o,oi)=>{s+=LETRAS[oi]+') '+o+'\n';});
-      s+='MI RESPUESTA: '+chosen+'\nRESPUESTA CORRECTA: '+LETRAS[p.correcta]+'\n\n';
-    } else {
-      const ta=document.getElementById('ta'+pi);
-      s+=promptPregunta(p,ta?ta.value:'')+'\n';
-    }
-  });
-  copy(s,document.getElementById('btnCopiaTodo'));
-}
-function copy(text,btn){
-  const done=()=>{if(btn){const t=btn.textContent;btn.textContent='✔ Copiado';btn.classList.add('done');setTimeout(()=>{btn.textContent=t;btn.classList.remove('done');},1800);}};
-  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done).catch(()=>fallbackCopy(text,done));}
-  else fallbackCopy(text,done);
-}
-function fallbackCopy(text,done){
-  const t=document.createElement('textarea');t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();
-  try{document.execCommand('copy');done();}catch(e){alert('Copia manual:\n\n'+text.slice(0,500)+'...');}
-  document.body.removeChild(t);
-}
-
-document.addEventListener('DOMContentLoaded',renderHome);
+});
 </script>
 </body>
 </html>
